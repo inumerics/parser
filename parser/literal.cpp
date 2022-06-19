@@ -12,7 +12,7 @@ Literal::parse(const std::string& pattern, Term* accept)
     /** Build a single state to start */
     states.clear();
     start = add_state();
-    Finite* term = start;
+    Finite* state = start;
     
     std::istringstream in(pattern);
     
@@ -50,11 +50,12 @@ Literal::parse(const std::string& pattern, Term* accept)
         
         /** Each state has only a single output with its character. */
         Finite* next = add_state();
-        term->add_out(c, next);
-        term = next;
+        state->add_out(c, next);
+        state = next;
     }
     
-    term->term = accept;
+    /** Set the term of the last state to indicate a match. */
+    state->term = accept;
     return true;
 }
 
