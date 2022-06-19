@@ -1,41 +1,25 @@
 /**
- * Finite state machine for recognizing words and numbers in an input string.
+ * Finite state machine for recognizing a character sequence in an input string.
  */
-
 #include "finite.hpp"
+#include "literal.hpp"
 
 #include <sstream>
 
 int
 main(int argc, const char* argv[])
 {
-    /** Finding words and numbers. */
-    Term word("word", 0);
-    Term number("number", 1);
+    Term match("match", 1);
     
-    /** States for each terminal and the negative sign. */
-    Finite start;
-    Finite state_word(&word);
-    Finite state_number(&number);
-    Finite state_sign;
+    /** Build the finite state machine to match the sequence. */
+    Literal literal;
+    bool ok = literal.parse("abc", &match);
+    if (!ok) {
+        std::cerr << "Unable to parse sequence.\n";
+        return 1;
+    }
     
-    /** Add outputs to construct the state machine. */
-    start.add_out('a', 'z', &state_word);
-    start.add_out('-', &state_sign);
-
-    /** An empty output is added to bypass the optional negative sign. */
-    start.add_epsilon(&state_sign);
-
-    /**
-     * Circle back to the previous state so that continuing to see a letter
-     * while in the word state, or a digit while in the number state, keeps
-     * those states in the active set.
-     */
-    state_word.add_out('a', 'z', &state_word);
-    state_sign.add_out('0', '9', &state_number);
-    state_number.add_out('0', '9', &state_number);
-    
-    std::stringstream example("hello test 123");
+    std::stringstream example("hello abc 123");
     
     /** Scan identifies terminals in the input. */
     while (true) {
@@ -45,14 +29,16 @@ main(int argc, const char* argv[])
         }
         
         std::string match;
-        Term* term = start.scan(example, &match);
+        Term* term = literal.start->scan(example, &match);
 
         if (term) {
             std::cout << match << " is a " << term->name << ".\n";
         } else {
-            std::cin >> match;
+            example >> match;
+            std::cout << match << " is not a match.\n";
         }
     }
-
+    
     return 0;
 }
+
