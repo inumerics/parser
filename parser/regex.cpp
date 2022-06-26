@@ -161,13 +161,9 @@ Regex::parse_fact(std::istream& in, std::vector<Finite::Out*>* outs)
 Finite*
 Regex::parse_atom(std::istream& in, std::vector<Finite::Out*>* outs)
 {
-    int c = in.get();
-    if (c == EOF) {
-        std::cerr << "Unexpected end of file.\n";
-        return nullptr;
-    }
-
+    int c = in.peek();
     if (c == '(') {
+        in.get();
         Finite* expr = parse_expr(in, outs);
         if (!expr) {
             return nullptr;
@@ -178,25 +174,24 @@ Regex::parse_atom(std::istream& in, std::vector<Finite::Out*>* outs)
         }
         return expr;
     }
+    else if (c == '[') {
+        in.get();
+        return parse_atom_range(in, outs);
+    }
     else if (c == ']' || c == ')' || c == '|') {
         std::cerr << "Unexpected '" << (char)c << "' in expression.\n";
         return nullptr;
     }
-    else if (isprint(c)) {
-        Finite* state = add_state();
-        Finite::Out* out = state->add_out(c, nullptr);
-        outs->push_back(out);
-        return state;
-    }
     else {
-        if (c == EOF) {
-            std::cerr << "Unexpected end of file.\n";
-        } else if (isprint(c)) {
-            std::cerr << "Unexpected '" << (char)c << "' in expression.\n";
+        int c = parse_char(in);
+        if (c >= 0) {
+            Finite* state = add_state();
+            Finite::Out* out = state->add_out(c, nullptr);
+            outs->push_back(out);
+            return state;
         } else {
-            std::cerr << "Unexpected << c << in expression.\n";
+            return nullptr;
         }
-        return nullptr;
     }
 }
 
@@ -215,4 +210,137 @@ Finite*
 Regex::add_state(Term* accept) {
     states.emplace_back(std::make_unique<Finite>(accept));
     return states.back().get();
+}
+
+/** Parses a range of characters, [a-z]. */
+Finite*
+Regex::parse_atom_range(std::istream& in, std::vector<Finite::Out*>* outs)
+{
+    int first = parse_char(in);
+    if (first < 0) {
+        return nullptr;
+    }
+
+    if (in.get() != '-') {
+        std::cerr << "Expected a '-' to separate range.\n";
+        return nullptr;
+    }
+    
+    int last = parse_char(in);
+    if (last < 0) {
+        return nullptr;
+    }
+    
+    if (in.get() != ']') {
+        std::cerr << "Expected a ']' to end range.\n";
+        return nullptr;
+    }
+    
+    Finite* state = add_state();
+    Finite::Out* out = state->add_out(first, last, nullptr);
+    outs->push_back(out);
+    return state;
+}
+
+/** Returns the next printable character or escape sequence. */
+int
+Regex::parse_char(std::istream& in)
+{
+    int c = in.get();
+    
+    if (c == '|'
+            || c == '[' || c == ']'
+            || c == '(' || c == ')') {
+        std::cerr << "Unexpected '" << (char)c << "' in expression.\n";
+        return -1;
+    }
+    else if (c == '\\') {
+        if (in.peek() == 'u') {
+            in.get();
+            return parse_unicode(in);
+        } else {
+            return parse_escape(in);
+        }
+    }
+    else if (isprint(c)) {
+        return c;
+    }
+    else {
+        if (c == EOF) {
+            std::cerr << "Unexpected end of file.\n";
+        } else {
+            std::cerr << "Unexpected << c << in expression.\n";
+        }
+        return -1;
+    }
+}
+
+int
+Regex::parse_escape(std::istream& in)
+{
+    int c = in.get();
+
+    switch (c) {
+        case '[': break;
+        case ']': break;
+        case '(': break;
+        case ')': break;
+        case '|': break;
+        case 'n': c = '\n'; break;
+        case 'r': c = '\r'; break;
+        case 't': c = '\t'; break;
+        case 'a': c = '\a'; break;
+        case 'b': c = '\b'; break;
+        case 'e': c = '\e'; break;
+        case 'f': c = '\f'; break;
+        case 'v': c = '\v'; break;
+        case 's': c =  ' ' ; break;
+        case '\\': c = '\\'; break;
+        case '\'': c = '\''; break;
+        case '"':  c = '"' ; break;
+        case '?':  c = '?' ; break;
+        default: {
+            if (c == EOF) {
+                std::cerr << "Unexpected end of file.\n";
+            } else if (isprint(c)) {
+                std::cerr << "Unknown escape sequence '" << (char)c << "'.\n";
+            } else {
+                std::cerr << "Unexpected control character.\n";
+            }
+            return -1;
+        }
+    }
+
+    return c;
+}
+
+int
+Regex::parse_unicode(std::istream& in)
+{
+    int c = 0;
+    
+    while (true) {
+        int next = in.peek();
+        
+        if (isdigit(next)) {
+            in.get();
+            c <<= 4;
+            c  += (next - '0');
+        }
+        else if (next >= 'a' && next <= 'f') {
+            in.get();
+            c <<= 4;
+            c  += (next - 'a') + 10;
+        }
+        else if (next >= 'A' && next <= 'F') {
+            in.get();
+            c <<= 4;
+            c  += (next - 'A') + 10;
+        }
+        else {
+            break;
+        }
+    }
+    
+    return c;
 }

@@ -41,6 +41,14 @@ class Regex
     Finite* parse_term(std::istream& in, std::vector<Finite::Out*>* outs);
     Finite* parse_fact(std::istream& in, std::vector<Finite::Out*>* outs);
     Finite* parse_atom(std::istream& in, std::vector<Finite::Out*>* outs);
+    
+    /** Additional method to find characters in a range. */
+    Finite* parse_atom_range(std::istream& in, std::vector<Finite::Out*>* outs);
+    
+    /** Returns the next printable character or escape sequence. */
+    int parse_char(std::istream& in);
+    int parse_escape(std::istream& in);    
+    int parse_unicode(std::istream& in);    
 };
 
 #endif
