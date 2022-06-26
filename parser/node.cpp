@@ -2,9 +2,7 @@
 
 #include <algorithm>
 
-/**
- * Ranges within each node map an input character to an another node in the DFA.
- */
+/** Construct the Nodes of the DFA. */
 Node::Node(size_t id):
     id(id),
     accept(nullptr) {}

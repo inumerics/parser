@@ -13,6 +13,8 @@
 		965AEBAA285EF8E100E45687 /* literal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965AEBA8285EF8E100E45687 /* literal.cpp */; };
 		965AEBAD285EFB0400E45687 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965AEBAC285EFB0400E45687 /* test.cpp */; };
 		96DC95FC286817CF004AE767 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC95FA286817CF004AE767 /* node.cpp */; };
+		96DC95FF286818D6004AE767 /* lexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC95FD286818D6004AE767 /* lexer.cpp */; };
+		96DC960228681E74004AE767 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960028681E74004AE767 /* display.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +41,10 @@
 		965AEBAC285EFB0400E45687 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		96DC95FA286817CF004AE767 /* node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
 		96DC95FB286817CF004AE767 /* node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = node.hpp; sourceTree = "<group>"; };
+		96DC95FD286818D6004AE767 /* lexer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lexer.cpp; sourceTree = "<group>"; };
+		96DC95FE286818D6004AE767 /* lexer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = lexer.hpp; sourceTree = "<group>"; };
+		96DC960028681E74004AE767 /* display.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = display.cpp; sourceTree = "<group>"; };
+		96DC960128681E74004AE767 /* display.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = display.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,10 @@
 				964FDCCB28601D73006E24C6 /* regex.cpp */,
 				96DC95FB286817CF004AE767 /* node.hpp */,
 				96DC95FA286817CF004AE767 /* node.cpp */,
+				96DC95FE286818D6004AE767 /* lexer.hpp */,
+				96DC95FD286818D6004AE767 /* lexer.cpp */,
+				96DC960128681E74004AE767 /* display.hpp */,
+				96DC960028681E74004AE767 /* display.cpp */,
 				96334900285EF2AA00445AC7 /* main.cpp */,
 			);
 			path = parser;
@@ -152,10 +162,12 @@
 			files = (
 				965AEBA7285EF65000E45687 /* finite.cpp in Sources */,
 				964FDCCD28601D73006E24C6 /* regex.cpp in Sources */,
+				96DC960228681E74004AE767 /* display.cpp in Sources */,
 				965AEBAD285EFB0400E45687 /* test.cpp in Sources */,
 				965AEBAA285EF8E100E45687 /* literal.cpp in Sources */,
 				96334901285EF2AA00445AC7 /* main.cpp in Sources */,
 				96DC95FC286817CF004AE767 /* node.cpp in Sources */,
+				96DC95FF286818D6004AE767 /* lexer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

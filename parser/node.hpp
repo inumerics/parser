@@ -4,12 +4,8 @@
  * the input character.  While simpler to construct, keeping track of the set of
  * states results in more computation during runtime.  The Node class is
  * combines multiple NFAs into a single deterministic finite automaton (DFA).
- *
- * The DFA is built by finding the next set of possible NFA states after reading
- * an input character.  Ranges within each node map an input character to an
- * another node in the DFA.
+ * Ranges within each node map an input character to an another node in the DFA.
  */
-
 #ifndef node_hpp
 #define node_hpp
 
@@ -42,7 +38,7 @@ class Node {
     /** Solving for the next states in the DFA from this state. */
     int find_next(int c, std::set<Finite*>* next, int max);
     void solve_closure();
-    void solve_accept();    
+    void solve_accept();
     
     std::set<Finite*> items;
     Term* accept;
