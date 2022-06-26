@@ -66,6 +66,7 @@ class Finite
         
     /** Finds output targets with the given character in its range. */
     void find_next(int c, std::set<Finite*>* next) const;
+    int find_next(int c, std::set<Finite*>* next, int max) const;    
         
     /** Follows empty transitions until no new states are found. */
     static void closure(std::set<Finite*>* states);

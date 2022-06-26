@@ -12,6 +12,7 @@
 		965AEBA7285EF65000E45687 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965AEBA5285EF65000E45687 /* finite.cpp */; };
 		965AEBAA285EF8E100E45687 /* literal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965AEBA8285EF8E100E45687 /* literal.cpp */; };
 		965AEBAD285EFB0400E45687 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 965AEBAC285EFB0400E45687 /* test.cpp */; };
+		96DC95FC286817CF004AE767 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC95FA286817CF004AE767 /* node.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,8 @@
 		965AEBA8285EF8E100E45687 /* literal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = literal.cpp; sourceTree = "<group>"; };
 		965AEBA9285EF8E100E45687 /* literal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = literal.hpp; sourceTree = "<group>"; };
 		965AEBAC285EFB0400E45687 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		96DC95FA286817CF004AE767 /* node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = node.cpp; sourceTree = "<group>"; };
+		96DC95FB286817CF004AE767 /* node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = node.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +78,8 @@
 				965AEBA8285EF8E100E45687 /* literal.cpp */,
 				964FDCCC28601D73006E24C6 /* regex.hpp */,
 				964FDCCB28601D73006E24C6 /* regex.cpp */,
+				96DC95FB286817CF004AE767 /* node.hpp */,
+				96DC95FA286817CF004AE767 /* node.cpp */,
 				96334900285EF2AA00445AC7 /* main.cpp */,
 			);
 			path = parser;
@@ -150,6 +155,7 @@
 				965AEBAD285EFB0400E45687 /* test.cpp in Sources */,
 				965AEBAA285EF8E100E45687 /* literal.cpp in Sources */,
 				96334901285EF2AA00445AC7 /* main.cpp in Sources */,
+				96DC95FC286817CF004AE767 /* node.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

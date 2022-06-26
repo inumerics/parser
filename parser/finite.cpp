@@ -71,6 +71,23 @@ Finite::find_next(int c, std::set<Finite*>* next) const
     }
 }
 
+int
+Finite::find_next(int c, std::set<Finite*>* next, int max) const
+{
+    int last = max;
+    for (auto& out : outs) {
+        if (out->in_range(c) && out->next) {
+            next->insert(out->next);
+        }
+        if (out->first > c && out->first < last) {
+            last = out->first - 1;
+        } else if (out->last >= c && out->last < last) {
+            last = out->last;
+        }
+    }
+    return last;
+}
+
 /**
  * Closure methods follow the empty transitions of a state to complete the new
  * active set after reading a character.
