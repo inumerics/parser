@@ -19,6 +19,7 @@
 		96DC960928683BB0004AE767 /* grammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960728683BB0004AE767 /* grammar.cpp */; };
 		96FE46A028693C9B00FAF8AF /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE469E28693C9B00FAF8AF /* state.cpp */; };
 		96FE46A328693CC900FAF8AF /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46A128693CC900FAF8AF /* solver.cpp */; };
+		96FE46A728694E0B00FAF8AF /* code.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46A528694E0B00FAF8AF /* code.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +59,8 @@
 		96FE46A128693CC900FAF8AF /* solver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = solver.cpp; sourceTree = "<group>"; };
 		96FE46A228693CC900FAF8AF /* solver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = solver.hpp; sourceTree = "<group>"; };
 		96FE46A428693E3700FAF8AF /* test.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.bnf; sourceTree = "<group>"; };
+		96FE46A528694E0B00FAF8AF /* code.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = code.cpp; sourceTree = "<group>"; };
+		96FE46A628694E0B00FAF8AF /* code.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = code.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 				96FE469E28693C9B00FAF8AF /* state.cpp */,
 				96FE46A228693CC900FAF8AF /* solver.hpp */,
 				96FE46A128693CC900FAF8AF /* solver.cpp */,
+				96FE46A628694E0B00FAF8AF /* code.hpp */,
+				96FE46A528694E0B00FAF8AF /* code.cpp */,
 				96334900285EF2AA00445AC7 /* main.cpp */,
 			);
 			path = parser;
@@ -187,6 +192,7 @@
 				96FE46A328693CC900FAF8AF /* solver.cpp in Sources */,
 				964FDCCD28601D73006E24C6 /* regex.cpp in Sources */,
 				96DC960228681E74004AE767 /* display.cpp in Sources */,
+				96FE46A728694E0B00FAF8AF /* code.cpp in Sources */,
 				965AEBAD285EFB0400E45687 /* test.cpp in Sources */,
 				965AEBAA285EF8E100E45687 /* literal.cpp in Sources */,
 				96DC960928683BB0004AE767 /* grammar.cpp in Sources */,

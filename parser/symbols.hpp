@@ -25,7 +25,6 @@ class Nonterm : public Symbol
   public:
     Nonterm(const std::string& name);
     std::string name;
-    std::string type;    
     size_t id;
 
     /**

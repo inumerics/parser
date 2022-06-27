@@ -18,8 +18,10 @@ class Symbol
 {
   public:
     virtual ~Symbol() = default;
+    std::string type;
     
     virtual void print(std::ostream& out) const = 0;
+    virtual void write(std::ostream& out) const = 0;
 };
 
 /**
@@ -30,12 +32,12 @@ class Term : public Symbol {
   public:
     Term(const std::string& name, size_t rank);
     std::string name;
-    std::string type;
     std::string regex;
     std::string action;
     size_t rank;
     
     virtual void print(std::ostream& out) const;
+    virtual void write(std::ostream& out) const;    
 };
 
 /**
