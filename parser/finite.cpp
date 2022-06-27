@@ -7,6 +7,8 @@ Term::Term(const std::string& name, size_t rank):
     name    (name),
     rank    (rank){}
 
+void Term::print(std::ostream& out) const { out << "'" << name << "'"; }
+
 Finite::Finite():
     term(nullptr){}
 

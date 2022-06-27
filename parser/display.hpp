@@ -16,11 +16,9 @@
 class Display
 {
   public:
-    static void print_lexer(const Lexer& lexer,
-                            std::ostream& out);
+    static void print_lexer(const Lexer& lexer, std::ostream& out);
     
-    static void print_node(const Node& node,
-                           std::ostream& out);
+    static void print_node(const Node& node, std::ostream& out);
 };
 
 #endif

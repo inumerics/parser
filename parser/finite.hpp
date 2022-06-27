@@ -12,14 +12,30 @@
 #include <iostream>
 
 /**
+ * Base class for the terminals and nonterminals of a grammar.
+ */
+class Symbol
+{
+  public:
+    virtual ~Symbol() = default;
+    
+    virtual void print(std::ostream& out) const = 0;
+};
+
+/**
  * Name of a terminal to find.  The rank is required when multiple terminals
  * match a string and the one with the lowest rank is accepted.
  */
-class Term {
+class Term : public Symbol {
   public:
     Term(const std::string& name, size_t rank);
     std::string name;
+    std::string type;
+    std::string regex;
+    std::string action;
     size_t rank;
+    
+    virtual void print(std::ostream& out) const;
 };
 
 /**
