@@ -35,6 +35,7 @@ Code::write(const Grammar& grammar, const Lexer& lexer, std::ostream& out)
     out << "using std::unique_ptr;\n";
     out << "using std::vector;\n\n";
     
+    out << "#include \"parser.hpp\"\n";
     //out << parser_header;
 
     std::set<std::string> types;
