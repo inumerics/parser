@@ -10,15 +10,30 @@
 #define display_hpp
 
 #include "lexer.hpp"
+#include "solver.hpp"
 #include <iostream>
 
 /******************************************************************************/
 class Display
 {
   public:
-    static void print_lexer(const Lexer& lexer, std::ostream& out);
+    static void print_lexer(const Lexer& lexer,
+                            std::ostream& out);
     
-    static void print_node(const Node& node, std::ostream& out);
+    static void print_parser(const Grammar& grammar,
+                             const Solver& solver,
+                             std::ostream& out);
+        
+    static void print_node(const Node& node,
+                           std::ostream& out);
+    
+    static void print_actions(const Grammar& grammar,
+                              const Solver& solver,
+                              std::ostream& out);
+    
+    static void print_gotos(const Grammar& grammar,
+                            const Solver& solver,
+                            std::ostream& out);
 };
 
 #endif

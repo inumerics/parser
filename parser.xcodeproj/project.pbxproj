@@ -17,6 +17,8 @@
 		96DC960228681E74004AE767 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960028681E74004AE767 /* display.cpp */; };
 		96DC960628683A68004AE767 /* symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960428683A68004AE767 /* symbols.cpp */; };
 		96DC960928683BB0004AE767 /* grammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960728683BB0004AE767 /* grammar.cpp */; };
+		96FE46A028693C9B00FAF8AF /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE469E28693C9B00FAF8AF /* state.cpp */; };
+		96FE46A328693CC900FAF8AF /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46A128693CC900FAF8AF /* solver.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +53,11 @@
 		96DC960528683A68004AE767 /* symbols.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = symbols.hpp; sourceTree = "<group>"; };
 		96DC960728683BB0004AE767 /* grammar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = grammar.cpp; sourceTree = "<group>"; };
 		96DC960828683BB0004AE767 /* grammar.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = grammar.hpp; sourceTree = "<group>"; };
+		96FE469E28693C9B00FAF8AF /* state.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = state.cpp; sourceTree = "<group>"; };
+		96FE469F28693C9B00FAF8AF /* state.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = state.hpp; sourceTree = "<group>"; };
+		96FE46A128693CC900FAF8AF /* solver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = solver.cpp; sourceTree = "<group>"; };
+		96FE46A228693CC900FAF8AF /* solver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = solver.hpp; sourceTree = "<group>"; };
+		96FE46A428693E3700FAF8AF /* test.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.bnf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +107,10 @@
 				96DC960728683BB0004AE767 /* grammar.cpp */,
 				96DC960128681E74004AE767 /* display.hpp */,
 				96DC960028681E74004AE767 /* display.cpp */,
+				96FE469F28693C9B00FAF8AF /* state.hpp */,
+				96FE469E28693C9B00FAF8AF /* state.cpp */,
+				96FE46A228693CC900FAF8AF /* solver.hpp */,
+				96FE46A128693CC900FAF8AF /* solver.cpp */,
 				96334900285EF2AA00445AC7 /* main.cpp */,
 			);
 			path = parser;
@@ -109,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				965AEBAC285EFB0400E45687 /* test.cpp */,
+				96FE46A428693E3700FAF8AF /* test.bnf */,
 			);
 			path = test;
 			sourceTree = "<group>";
@@ -170,7 +182,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96FE46A028693C9B00FAF8AF /* state.cpp in Sources */,
 				965AEBA7285EF65000E45687 /* finite.cpp in Sources */,
+				96FE46A328693CC900FAF8AF /* solver.cpp in Sources */,
 				964FDCCD28601D73006E24C6 /* regex.cpp in Sources */,
 				96DC960228681E74004AE767 /* display.cpp in Sources */,
 				965AEBAD285EFB0400E45687 /* test.cpp in Sources */,
