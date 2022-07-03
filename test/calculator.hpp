@@ -45,16 +45,9 @@ class Parser {
   public:
     static std::unique_ptr<Parser> build();
     virtual ~Parser() = default;
-    
-    enum Result {
-        Ready,              /// Ready for another character.
-        Unexpected_Char,    /// The character resulted in no matching terminal.
-        Unexpected_Symbol,  /// The next terminal did not match any rule.
-        Done                /// Successfully matched an accepting rule.
-    };
-    
-    virtual Result scan(Table* table, int c) = 0;
-    virtual Result scan_end(Table* table) = 0;
+        
+    virtual bool scan(Table* table, int c) = 0;
+    virtual bool scan_end(Table* table) = 0;
 };
 
 #endif

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <fstream>
 
+extern std::string parser_header;
+extern std::string parser_source;
 //#include "parser_header.cpp"
 //#include "parser_source.cpp"
 
@@ -35,8 +37,8 @@ Code::write(const Grammar& grammar, const Lexer& lexer, std::ostream& out)
     out << "using std::unique_ptr;\n";
     out << "using std::vector;\n\n";
     
-    out << "#include \"parser.hpp\"\n";
-    //out << parser_header;
+    //out << "#include \"parser.hpp\"\n";
+    out << parser_header;
 
     std::set<std::string> types;
     for (auto& term : grammar.terms) {
@@ -78,6 +80,8 @@ Code::write(const Grammar& grammar, const Lexer& lexer, std::ostream& out)
         write_node(node, out);
     }
     out << "\n";
+    
+    out << parser_source;
 }
 
 /******************************************************************************/

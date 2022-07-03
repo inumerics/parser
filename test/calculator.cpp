@@ -105,39 +105,31 @@ main(int argc, const char * argv[])
         std::cerr << "Expected a single input string.\n";
         return 1;
     }
-
-    std::stringstream in(argv[1]);
+        
+    std::unique_ptr<Parser> parser = Parser::build();
+    if (!parser) {
+        std::cerr << "Error while building parser.\n";
+        return 1;
+    }
     
     Table table;
     
-    std::unique_ptr<Parser> parser = Parser::build();
+    std::stringstream in(argv[1]);
             
     while (true) {
         int c = in.get();
         if (c == EOF) {
-            Parser::Result result = parser->scan_end(&table);
-            if (result != Parser::Done) {
+            bool ok = parser->scan_end(&table);
+            if (!ok) {
                 std::cerr << "Unexpected end of the input.\n";
+                return 1;
             }
             break;
         } else {
-            Parser::Result result = parser->scan(&table, c);
-            if (result != Parser::Ready) {
-                switch (result) {
-                    case Parser::Unexpected_Char:
-                        std::cerr << "Unexpected character.\n";
-                        break;
-                    case Parser::Unexpected_Symbol:
-                        std::cerr << "Unexpected symbol.\n";
-                        break;
-                    case Parser::Done:
-                        std::cerr << "Expected end of the input.\n";
-                        break;
-                    default:
-                        std::cerr << "Unknown Error.\n";
-                        break;
-                }
-                break;
+            bool ok = parser->scan(&table, c);
+            if (!ok) {
+                std::cerr << "Unexpected character.\n";
+                return 1;
             }
         }
     }

@@ -1,5 +1,7 @@
 #include "parser.hpp"
 
+std::string parser_source = R""""(
+
 /******************************************************************************/
 ParserImpl::ParserImpl(Node* node, State* start, Symbol* endmark):
     lexer_start (node),
@@ -34,13 +36,13 @@ ParserImpl::start()
  * character at a time until a terminal is found.  When a symbol is found the
  * function calls another function to update the state of the calculator.
  */
-Parser::Result
+bool
 ParserImpl::scan(Table* table, int c)
 {
     while (true)
     {
         if (node == lexer_start && isspace(c)) {
-            return Ready;
+            return true;
         }
         else {
             Node* next = nullptr;
@@ -51,11 +53,11 @@ ParserImpl::scan(Table* table, int c)
             if (next) {
                 text.push_back(c);
                 node = next;
-                return Ready;
+                return true;
             }
             else {
                 if (!node->accept) {
-                    return Unexpected_Char;
+                    return false;
                 }
 
                 Value* value = nullptr;
@@ -63,7 +65,7 @@ ParserImpl::scan(Table* table, int c)
                     value = node->scan(table, text);
                 }
                 if (!advance(table, node->accept, value)) {
-                    return Unexpected_Symbol;
+                    return false;
                 }
                 node = lexer_start;
                 text.clear();
@@ -72,7 +74,7 @@ ParserImpl::scan(Table* table, int c)
     }
 }
 
-Parser::Result
+bool
 ParserImpl::scan_end(Table* table)
 {
     if (node->accept) {
@@ -81,16 +83,17 @@ ParserImpl::scan_end(Table* table)
             value = node->scan(table, text);
         }
         if (!advance(table, node->accept, value)) {
-            return Unexpected_Symbol;
+            return false;
         }
     } else if (node != lexer_start) {
-        return Unexpected_Char;
+        return false;
     }
 
+    // TODO Check for accept.
     if (!advance(table, endmark, nullptr)) {
-        return Unexpected_Symbol;
+        return false;
     }
-    return Done;
+    return true;
 };
 /**
  * After a terminal is found in the input, it is either shifted onto the top of
@@ -205,3 +208,4 @@ std::unique_ptr<Parser> Parser::build()
     return result;
 };
 
+)"""";

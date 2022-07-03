@@ -1,7 +1,9 @@
 #ifndef parser_h
 #define parser_h
 
-#include "calculator.hpp"
+#include <string>
+
+std::string parser_header = R""""(
 
 #include <string>
 #include <vector>
@@ -76,8 +78,8 @@ class ParserImpl : public Parser {
     
     /** Advance the parser with the next input character. */
     void start();
-    virtual Result scan(Table* table, int c);
-    virtual Result scan_end(Table* table);
+    virtual bool scan(Table* table, int c);
+    virtual bool scan_end(Table* table);
 
   private:
     Node*   lexer_start;
@@ -101,5 +103,7 @@ class ParserImpl : public Parser {
     bool advance(Table* table, Symbol* sym, Value* val);
 };
 
+)"""";
 
 #endif
+

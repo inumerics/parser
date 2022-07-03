@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		962A37AD2869553E001AAC26 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46B92869541A00FAF8AF /* parser.cpp */; };
 		962A37AF2869573D001AAC26 /* calculator.bnf in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46B82869528200FAF8AF /* calculator.bnf */; };
 		96334901285EF2AA00445AC7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96334900285EF2AA00445AC7 /* main.cpp */; };
 		964FDCCD28601D73006E24C6 /* regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 964FDCCB28601D73006E24C6 /* regex.cpp */; };
@@ -19,6 +18,7 @@
 		96DC960228681E74004AE767 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960028681E74004AE767 /* display.cpp */; };
 		96DC960628683A68004AE767 /* symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960428683A68004AE767 /* symbols.cpp */; };
 		96DC960928683BB0004AE767 /* grammar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96DC960728683BB0004AE767 /* grammar.cpp */; };
+		96DD8F7F2872516900BD6828 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46B92869541A00FAF8AF /* parser.cpp */; };
 		96FE46A028693C9B00FAF8AF /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE469E28693C9B00FAF8AF /* state.cpp */; };
 		96FE46A328693CC900FAF8AF /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46A128693CC900FAF8AF /* solver.cpp */; };
 		96FE46A728694E0B00FAF8AF /* code.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FE46A528694E0B00FAF8AF /* code.cpp */; };
@@ -42,6 +42,16 @@
 			script = "cd \"$DERIVED_FILE_DIR\"\n$BUILT_PRODUCTS_DIR/parser < $INPUT_FILE_PATH > states.cpp\n";
 		};
 /* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		96BAC0D12871858700F2816B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 963348F5285EF2AA00445AC7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 963348FC285EF2AA00445AC7;
+			remoteInfo = parser;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		963348FB285EF2AA00445AC7 /* CopyFiles */ = {
@@ -156,10 +166,10 @@
 				96FE469E28693C9B00FAF8AF /* state.cpp */,
 				96FE46A228693CC900FAF8AF /* solver.hpp */,
 				96FE46A128693CC900FAF8AF /* solver.cpp */,
-				96FE46BA2869541A00FAF8AF /* parser.hpp */,
-				96FE46B92869541A00FAF8AF /* parser.cpp */,
 				96DC960128681E74004AE767 /* display.hpp */,
 				96DC960028681E74004AE767 /* display.cpp */,
+				96FE46BA2869541A00FAF8AF /* parser.hpp */,
+				96FE46B92869541A00FAF8AF /* parser.cpp */,
 				96FE46A628694E0B00FAF8AF /* code.hpp */,
 				96FE46A528694E0B00FAF8AF /* code.cpp */,
 				96334900285EF2AA00445AC7 /* main.cpp */,
@@ -170,8 +180,8 @@
 		965AEBAB285EFAED00E45687 /* test */ = {
 			isa = PBXGroup;
 			children = (
-				965AEBAC285EFB0400E45687 /* test.cpp */,
 				96FE46A428693E3700FAF8AF /* test.bnf */,
+				965AEBAC285EFB0400E45687 /* test.cpp */,
 				96FE46B82869528200FAF8AF /* calculator.bnf */,
 				96FE46A9286951BA00FAF8AF /* calculator.hpp */,
 				96FE46A8286951BA00FAF8AF /* calculator.cpp */,
@@ -211,6 +221,7 @@
 				962A37AE286956FA001AAC26 /* PBXBuildRule */,
 			);
 			dependencies = (
+				96BAC0D22871858700F2816B /* PBXTargetDependency */,
 			);
 			name = calculator;
 			productName = calculator;
@@ -258,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96DD8F7F2872516900BD6828 /* parser.cpp in Sources */,
 				96FE46A028693C9B00FAF8AF /* state.cpp in Sources */,
 				965AEBA7285EF65000E45687 /* finite.cpp in Sources */,
 				96FE46A328693CC900FAF8AF /* solver.cpp in Sources */,
@@ -279,12 +291,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				962A37AF2869573D001AAC26 /* calculator.bnf in Sources */,
-				962A37AD2869553E001AAC26 /* parser.cpp in Sources */,
 				96FE46B72869526B00FAF8AF /* calculator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		96BAC0D22871858700F2816B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 963348FC285EF2AA00445AC7 /* parser */;
+			targetProxy = 96BAC0D12871858700F2816B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		96334902285EF2AA00445AC7 /* Debug */ = {
