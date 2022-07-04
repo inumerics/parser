@@ -75,6 +75,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		961B20432872686E003A9E84 /* license */ = {isa = PBXFileReference; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
+		961B204428726A1B003A9E84 /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		961B204528726B94003A9E84 /* output.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = output.md; sourceTree = "<group>"; };
 		963348FD285EF2AA00445AC7 /* parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = parser; sourceTree = BUILT_PRODUCTS_DIR; };
 		96334900285EF2AA00445AC7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		964FDCCB28601D73006E24C6 /* regex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = regex.cpp; sourceTree = "<group>"; };
@@ -130,6 +133,9 @@
 		963348F4285EF2AA00445AC7 = {
 			isa = PBXGroup;
 			children = (
+				961B204428726A1B003A9E84 /* readme.md */,
+				961B204528726B94003A9E84 /* output.md */,
+				961B20432872686E003A9E84 /* license */,
 				963348FF285EF2AA00445AC7 /* parser */,
 				965AEBAB285EFAED00E45687 /* test */,
 				963348FE285EF2AA00445AC7 /* Products */,
