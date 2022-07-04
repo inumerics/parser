@@ -180,3 +180,9 @@ int test_parser()
     return 0;
 
 }
+
+int
+main(int argc, char* argv[])
+{
+    test_parser();    
+}
