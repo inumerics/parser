@@ -29,6 +29,7 @@
 		96EF81E029A17F32001CC416 /* solver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81DD29A17F32001CC416 /* solver.cpp */; };
 		96EF81E329A1808B001CC416 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81E129A1808B001CC416 /* display.cpp */; };
 		96EF81E429A1808B001CC416 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81E129A1808B001CC416 /* display.cpp */; };
+		96EF81E729A18184001CC416 /* code.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81E529A18184001CC416 /* code.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +80,9 @@
 		96EF81DE29A17F32001CC416 /* solver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = solver.hpp; sourceTree = "<group>"; };
 		96EF81E129A1808B001CC416 /* display.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = display.cpp; sourceTree = "<group>"; };
 		96EF81E229A1808B001CC416 /* display.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = display.hpp; sourceTree = "<group>"; };
+		96EF81E529A18184001CC416 /* code.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = code.cpp; sourceTree = "<group>"; };
+		96EF81E629A18184001CC416 /* code.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = code.hpp; sourceTree = "<group>"; };
+		96EF81E829A18200001CC416 /* test.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.bnf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 		96EF81B729A173A6001CC416 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				96EF81E829A18200001CC416 /* test.bnf */,
 				96EF81B829A173A6001CC416 /* test.cpp */,
 			);
 			path = test;
@@ -159,6 +164,8 @@
 				96EF81DD29A17F32001CC416 /* solver.cpp */,
 				96EF81E229A1808B001CC416 /* display.hpp */,
 				96EF81E129A1808B001CC416 /* display.cpp */,
+				96EF81E629A18184001CC416 /* code.hpp */,
+				96EF81E529A18184001CC416 /* code.cpp */,
 			);
 			path = parser;
 			sourceTree = "<group>";
@@ -249,6 +256,7 @@
 				96EF81CD29A17C72001CC416 /* lexer.cpp in Sources */,
 				96EF81D729A17ECF001CC416 /* grammar.cpp in Sources */,
 				96EF81C029A1747E001CC416 /* literal.cpp in Sources */,
+				96EF81E729A18184001CC416 /* code.cpp in Sources */,
 				96EF81CA29A17C54001CC416 /* node.cpp in Sources */,
 				96EF81D329A17E4E001CC416 /* symbols.cpp in Sources */,
 				9676CA0229A16F14009397B1 /* main.cpp in Sources */,

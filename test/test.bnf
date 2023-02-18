@@ -1,0 +1,17 @@
+#include "calculator.hpp"
+
+'test';
+
+/* Integer Values */
+'num'<Expr>  [0-9]+     &scan_num;
+
+/* Grammar Rules */
+total<Expr>: add        &reduce_total
+    ;
+add<Expr>: mul
+    | add '+' mul       &reduce_add_mul
+    ;
+mul<Expr>: 'num'
+    | mul '*' 'num'     &reduce_mul_int
+    ;
+
