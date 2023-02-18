@@ -2,6 +2,7 @@
 #include "literal.hpp"
 #include "regex.hpp"
 #include "lexer.hpp"
+#include "display.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -144,6 +145,8 @@ int test_lexer()
     lexer.solve();
     lexer.reduce();
     
+    Display::print_lexer(lexer, std::cout);
+    
     return 0;
 }
 
@@ -153,4 +156,5 @@ main(int argc, char* argv[])
     test_finite();
     test_literal();
     test_regex();
+    test_lexer();
 }
