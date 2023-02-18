@@ -1,6 +1,7 @@
 #include "finite.hpp"
 #include "literal.hpp"
 #include "regex.hpp"
+#include "lexer.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -128,6 +129,23 @@ int test_regex()
     return 0;
 }
 
+/******************************************************************************/
+int test_lexer()
+{
+    Term num("number", 1);
+    Term hex("hex", 2);
+    
+    Lexer lexer;
+    lexer.add_regex(&num, "[0-9]+");
+    lexer.add_regex(&hex, "0x([a-f]|[A-F]|[0-9])+");
+    lexer.add_regex(&hex, "0h([a-f]|[A-F]|[0-9])+");
+    
+    
+    lexer.solve();
+    lexer.reduce();
+    
+    return 0;
+}
 
 int
 main(int argc, char* argv[])
