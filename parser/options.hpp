@@ -1,0 +1,24 @@
+#ifndef options_hpp
+#define options_hpp
+
+/*******************************************************************************
+ * Parses and stores the command line options.
+ */
+class Options {
+public:
+    Options();
+    bool parse(int argc, char *argv[]);
+    void display_help();
+    
+    std::string inpath;
+    std::string outpath;
+    bool show_help;
+    bool show_lexer;
+    bool show_parser;
+    
+private:
+    bool parse_option(char c, int argc, char *argv[], int* idx);
+};
+
+
+#endif

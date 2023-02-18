@@ -30,7 +30,28 @@
 		96EF81E329A1808B001CC416 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81E129A1808B001CC416 /* display.cpp */; };
 		96EF81E429A1808B001CC416 /* display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81E129A1808B001CC416 /* display.cpp */; };
 		96EF81E729A18184001CC416 /* code.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81E529A18184001CC416 /* code.cpp */; };
+		96EF81F129A196BE001CC416 /* calculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81F029A196BE001CC416 /* calculator.cpp */; };
+		96EF81F829A198C3001CC416 /* calculator.bnf in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81F629A19762001CC416 /* calculator.bnf */; };
+		96EF81FB29A19AEA001CC416 /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81F929A19AEA001CC416 /* options.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		96EF81F729A19791001CC416 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.bnf";
+			fileType = pattern.proxy;
+			inputFiles = (
+				"$(SRCROOT)/calculator/calculator.bnf",
+				$BUILT_PRODUCTS_DIR/parser,
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/states.cpp",
+			);
+			script = "cd \"$DERIVED_FILE_DIR\"\n$BUILT_PRODUCTS_DIR/parser -o states.cpp $INPUT_FILE_PATH\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9676C9FC29A16F14009397B1 /* CopyFiles */ = {
@@ -43,6 +64,15 @@
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 		96EF81B429A173A6001CC416 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		96EF81EC29A196BE001CC416 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -83,6 +113,12 @@
 		96EF81E529A18184001CC416 /* code.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = code.cpp; sourceTree = "<group>"; };
 		96EF81E629A18184001CC416 /* code.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = code.hpp; sourceTree = "<group>"; };
 		96EF81E829A18200001CC416 /* test.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.bnf; sourceTree = "<group>"; };
+		96EF81EE29A196BE001CC416 /* calculator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = calculator; sourceTree = BUILT_PRODUCTS_DIR; };
+		96EF81F029A196BE001CC416 /* calculator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = calculator.cpp; sourceTree = "<group>"; };
+		96EF81F529A19710001CC416 /* calculator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = calculator.hpp; sourceTree = "<group>"; };
+		96EF81F629A19762001CC416 /* calculator.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = calculator.bnf; sourceTree = "<group>"; };
+		96EF81F929A19AEA001CC416 /* options.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = options.cpp; sourceTree = "<group>"; };
+		96EF81FA29A19AEA001CC416 /* options.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = options.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +136,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		96EF81EB29A196BE001CC416 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -108,9 +151,11 @@
 			children = (
 				96EF81C629A17601001CC416 /* license.md */,
 				96EF81C729A17623001CC416 /* readme.md */,
+				9676CA0129A16F14009397B1 /* main.cpp */,
 				9676CA0029A16F14009397B1 /* lexer */,
 				96EF81D029A17E04001CC416 /* parser */,
 				96EF81B729A173A6001CC416 /* test */,
+				96EF81EF29A196BE001CC416 /* calculator */,
 				9676C9FF29A16F14009397B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -120,6 +165,7 @@
 			children = (
 				9676C9FE29A16F14009397B1 /* parser */,
 				96EF81B629A173A6001CC416 /* test */,
+				96EF81EE29A196BE001CC416 /* calculator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,7 +183,6 @@
 				96EF81C829A17C54001CC416 /* node.cpp */,
 				96EF81CC29A17C72001CC416 /* lexer.hpp */,
 				96EF81CB29A17C72001CC416 /* lexer.cpp */,
-				9676CA0129A16F14009397B1 /* main.cpp */,
 			);
 			path = lexer;
 			sourceTree = "<group>";
@@ -166,8 +211,20 @@
 				96EF81E129A1808B001CC416 /* display.cpp */,
 				96EF81E629A18184001CC416 /* code.hpp */,
 				96EF81E529A18184001CC416 /* code.cpp */,
+				96EF81FA29A19AEA001CC416 /* options.hpp */,
+				96EF81F929A19AEA001CC416 /* options.cpp */,
 			);
 			path = parser;
+			sourceTree = "<group>";
+		};
+		96EF81EF29A196BE001CC416 /* calculator */ = {
+			isa = PBXGroup;
+			children = (
+				96EF81F629A19762001CC416 /* calculator.bnf */,
+				96EF81F529A19710001CC416 /* calculator.hpp */,
+				96EF81F029A196BE001CC416 /* calculator.cpp */,
+			);
+			path = calculator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +264,24 @@
 			productReference = 96EF81B629A173A6001CC416 /* test */;
 			productType = "com.apple.product-type.tool";
 		};
+		96EF81ED29A196BE001CC416 /* calculator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 96EF81F229A196BE001CC416 /* Build configuration list for PBXNativeTarget "calculator" */;
+			buildPhases = (
+				96EF81EA29A196BE001CC416 /* Sources */,
+				96EF81EB29A196BE001CC416 /* Frameworks */,
+				96EF81EC29A196BE001CC416 /* CopyFiles */,
+			);
+			buildRules = (
+				96EF81F729A19791001CC416 /* PBXBuildRule */,
+			);
+			dependencies = (
+			);
+			name = calculator;
+			productName = calculator;
+			productReference = 96EF81EE29A196BE001CC416 /* calculator */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -220,6 +295,9 @@
 						CreatedOnToolsVersion = 14.2;
 					};
 					96EF81B529A173A6001CC416 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					96EF81ED29A196BE001CC416 = {
 						CreatedOnToolsVersion = 14.2;
 					};
 				};
@@ -239,6 +317,7 @@
 			targets = (
 				9676C9FD29A16F14009397B1 /* parser */,
 				96EF81B529A173A6001CC416 /* test */,
+				96EF81ED29A196BE001CC416 /* calculator */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +329,7 @@
 			files = (
 				96EF81DF29A17F32001CC416 /* solver.cpp in Sources */,
 				96EF81B029A1733A001CC416 /* finite.cpp in Sources */,
+				96EF81FB29A19AEA001CC416 /* options.cpp in Sources */,
 				96EF81DB29A17EEF001CC416 /* state.cpp in Sources */,
 				96EF81C429A174C8001CC416 /* regex.cpp in Sources */,
 				96EF81E329A1808B001CC416 /* display.cpp in Sources */,
@@ -278,6 +358,15 @@
 				96EF81C129A1747E001CC416 /* literal.cpp in Sources */,
 				96EF81D429A17E4E001CC416 /* symbols.cpp in Sources */,
 				96EF81B929A173A6001CC416 /* test.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		96EF81EA29A196BE001CC416 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96EF81F829A198C3001CC416 /* calculator.bnf in Sources */,
+				96EF81F129A196BE001CC416 /* calculator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +514,22 @@
 			};
 			name = Release;
 		};
+		96EF81F329A196BE001CC416 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		96EF81F429A196BE001CC416 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -451,6 +556,15 @@
 			buildConfigurations = (
 				96EF81BB29A173A6001CC416 /* Debug */,
 				96EF81BC29A173A6001CC416 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		96EF81F229A196BE001CC416 /* Build configuration list for PBXNativeTarget "calculator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				96EF81F329A196BE001CC416 /* Debug */,
+				96EF81F429A196BE001CC416 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
