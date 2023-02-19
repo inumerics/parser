@@ -1,6 +1,8 @@
 #ifndef options_hpp
 #define options_hpp
 
+#include <string>
+
 /*******************************************************************************
  * Parses and stores the command line options.
  */

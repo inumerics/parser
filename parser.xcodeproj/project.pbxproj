@@ -33,6 +33,7 @@
 		96EF81F129A196BE001CC416 /* calculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81F029A196BE001CC416 /* calculator.cpp */; };
 		96EF81F829A198C3001CC416 /* calculator.bnf in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81F629A19762001CC416 /* calculator.bnf */; };
 		96EF81FB29A19AEA001CC416 /* options.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81F929A19AEA001CC416 /* options.cpp */; };
+		96EF81FD29A19ED8001CC416 /* parser in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9676C9FE29A16F14009397B1 /* parser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -56,10 +57,11 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		9676C9FC29A16F14009397B1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
+			buildActionMask = 8;
+			dstPath = "$(PROJECT_DIR)/bin";
 			dstSubfolderSpec = 0;
 			files = (
+				96EF81FD29A19ED8001CC416 /* parser in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -119,6 +121,7 @@
 		96EF81F629A19762001CC416 /* calculator.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = calculator.bnf; sourceTree = "<group>"; };
 		96EF81F929A19AEA001CC416 /* options.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = options.cpp; sourceTree = "<group>"; };
 		96EF81FA29A19AEA001CC416 /* options.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = options.hpp; sourceTree = "<group>"; };
+		96EF81FE29A19F57001CC416 /* output.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = output.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,8 +152,9 @@
 		9676C9F529A16F14009397B1 = {
 			isa = PBXGroup;
 			children = (
-				96EF81C629A17601001CC416 /* license.md */,
 				96EF81C729A17623001CC416 /* readme.md */,
+				96EF81FE29A19F57001CC416 /* output.md */,
+				96EF81C629A17601001CC416 /* license.md */,
 				9676CA0129A16F14009397B1 /* main.cpp */,
 				9676CA0029A16F14009397B1 /* lexer */,
 				96EF81D029A17E04001CC416 /* parser */,

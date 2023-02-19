@@ -1,5 +1,8 @@
 #include "options.hpp"
 
+#include <iostream>
+#include <fstream>
+
 /******************************************************************************/
 Options::Options():
     show_help(false),
