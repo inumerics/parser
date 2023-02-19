@@ -1,6 +1,7 @@
 #include "node.hpp"
 
 #include <algorithm>
+#include <climits>
 
 Node*
 Node::get_next(int c, int* last)
