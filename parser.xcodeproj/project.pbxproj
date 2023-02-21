@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		966057E629A466F50040D25B /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 966057E529A466F50040D25B /* json.cpp */; };
 		9676CA0229A16F14009397B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9676CA0129A16F14009397B1 /* main.cpp */; };
 		96B1613529A1B08800B90F93 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 96B1613429A1B08800B90F93 /* Makefile */; };
 		96EF81B029A1733A001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
@@ -56,6 +57,15 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		966057E129A466F50040D25B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		9676C9FC29A16F14009397B1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -87,6 +97,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		966057E329A466F50040D25B /* json */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = json; sourceTree = BUILT_PRODUCTS_DIR; };
+		966057E529A466F50040D25B /* json.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
+		966057EA29A467BB0040D25B /* json.bnf */ = {isa = PBXFileReference; lastKnownFileType = text; path = json.bnf; sourceTree = "<group>"; };
+		966057EB29A467E00040D25B /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		966057EC29A46AA30040D25B /* input.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = input.json; sourceTree = "<group>"; };
 		9676C9FE29A16F14009397B1 /* parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = parser; sourceTree = BUILT_PRODUCTS_DIR; };
 		9676CA0129A16F14009397B1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		96B1613429A1B08800B90F93 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -127,6 +142,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		966057E029A466F50040D25B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9676C9FB29A16F14009397B1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,6 +173,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		966057E429A466F50040D25B /* json */ = {
+			isa = PBXGroup;
+			children = (
+				966057EA29A467BB0040D25B /* json.bnf */,
+				966057EB29A467E00040D25B /* json.hpp */,
+				966057E529A466F50040D25B /* json.cpp */,
+				966057EC29A46AA30040D25B /* input.json */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
 		9676C9F529A16F14009397B1 = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +196,7 @@
 				96EF81D029A17E04001CC416 /* src */,
 				96EF81B729A173A6001CC416 /* test */,
 				96EF81EF29A196BE001CC416 /* calculator */,
+				966057E429A466F50040D25B /* json */,
 				9676C9FF29A16F14009397B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -173,6 +207,7 @@
 				9676C9FE29A16F14009397B1 /* parser */,
 				96EF81B629A173A6001CC416 /* test */,
 				96EF81EE29A196BE001CC416 /* calculator */,
+				966057E329A466F50040D25B /* json */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,6 +272,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		966057E229A466F50040D25B /* json */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 966057E929A466F50040D25B /* Build configuration list for PBXNativeTarget "json" */;
+			buildPhases = (
+				966057DF29A466F50040D25B /* Sources */,
+				966057E029A466F50040D25B /* Frameworks */,
+				966057E129A466F50040D25B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = json;
+			productName = json;
+			productReference = 966057E329A466F50040D25B /* json */;
+			productType = "com.apple.product-type.tool";
+		};
 		9676C9FD29A16F14009397B1 /* parser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9676CA0529A16F14009397B1 /* Build configuration list for PBXNativeTarget "parser" */;
@@ -298,6 +350,9 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					966057E229A466F50040D25B = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					9676C9FD29A16F14009397B1 = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -325,11 +380,20 @@
 				9676C9FD29A16F14009397B1 /* parser */,
 				96EF81B529A173A6001CC416 /* test */,
 				96EF81ED29A196BE001CC416 /* calculator */,
+				966057E229A466F50040D25B /* json */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		966057DF29A466F50040D25B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				966057E629A466F50040D25B /* json.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9676C9FA29A16F14009397B1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -381,6 +445,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		966057E729A466F50040D25B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		966057E829A466F50040D25B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		9676CA0329A16F14009397B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -541,6 +621,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		966057E929A466F50040D25B /* Build configuration list for PBXNativeTarget "json" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				966057E729A466F50040D25B /* Debug */,
+				966057E829A466F50040D25B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9676C9F929A16F14009397B1 /* Build configuration list for PBXProject "parser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
