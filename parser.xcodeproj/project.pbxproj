@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		966057E629A466F50040D25B /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 966057E529A466F50040D25B /* json.cpp */; };
+		966057EE29A46B9F0040D25B /* json.bnf in Sources */ = {isa = PBXBuildFile; fileRef = 966057EA29A467BB0040D25B /* json.bnf */; };
 		9676CA0229A16F14009397B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9676CA0129A16F14009397B1 /* main.cpp */; };
 		96B1613529A1B08800B90F93 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 96B1613429A1B08800B90F93 /* Makefile */; };
 		96EF81B029A1733A001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
@@ -39,6 +40,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
+		966057ED29A46B600040D25B /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.bnf";
+			fileType = pattern.proxy;
+			inputFiles = (
+				"$(SRCROOT)/json/json.bnf",
+				$BUILT_PRODUCTS_DIR/parser,
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/states.cpp",
+			);
+			script = "cd \"$DERIVED_FILE_DIR\"\n$BUILT_PRODUCTS_DIR/parser -o states.cpp $INPUT_FILE_PATH\n";
+		};
 		96EF81F729A19791001CC416 /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
@@ -68,13 +84,13 @@
 		};
 		9676C9FC29A16F14009397B1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			dstPath = "$(PROJECT_DIR)/bin";
 			dstSubfolderSpec = 0;
 			files = (
 				96EF81FD29A19ED8001CC416 /* parser in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		96EF81B429A173A6001CC416 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -281,6 +297,7 @@
 				966057E129A466F50040D25B /* CopyFiles */,
 			);
 			buildRules = (
+				966057ED29A46B600040D25B /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -390,6 +407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				966057EE29A46B9F0040D25B /* json.bnf in Sources */,
 				966057E629A466F50040D25B /* json.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
