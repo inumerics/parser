@@ -15,16 +15,9 @@
  * grammar.
  */
 class Value {
-public:
+  public:
+    Value(int value) : value(value) {}
     virtual ~Value() = default;
-};
-
-/**
- * Custom classes for the values of nonterminals of the calculator's grammar.
- */
-class Expr : public Value {
-public:
-    Expr(int value);
     int value;
 };
 
@@ -87,7 +80,7 @@ State* find_goto(State* state, Symbol* sym);
  * associated function.
  */
 class Calculator {
-public:
+  public:
     void start();
     
     /** Advance the parser with the next input character. */
@@ -96,7 +89,7 @@ public:
     /** Advance the parser at the end of the input. */
     bool scan_end(Table* table);
     
-private:
+  private:
     
     /** State of the lexer and input characters of the current symbol. */
     Node* node = &node0;

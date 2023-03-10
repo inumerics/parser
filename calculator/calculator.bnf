@@ -16,44 +16,33 @@
  *
  *      mult: 'num' | mult '*' 'num';
  *
- * The following grammar defines a calculator with operators for addition and
- * multiplication.  Operator precedence is set by the multiplication rules
- * containing the terminal for a number.  The first rule is followed by the end
- * of the input string and is last nonterminal left after reading the entire
- * input.
- *
- *      'num'  [0-9]+;
- *
- *      total: add;
- *      add:   mul  | add '+'  mul;
- *      mul:  'num' | mul '*' 'num';
- *
  * Using the previous techniques for defining grammar rules and implementing
  * their associated functions, the following lists the full grammar of our
  * calculator. This text is input to the parser generator for building the
- * tables of actions.
+ * tables of actions. These action tables are then compiled along with the user
+ * defined functions to build a calculator program.
  */
 
 #include "calculator.hpp"
 
 /* Integer Values */
-'num'<Expr>  [0-9]+                 &scan_num;
-'hex'<Expr>  0x([0-9]|[A-F]|[a-f])+ &scan_hex;
-'hex'<Expr>  0h([0-9]|[A-F]|[a-f])+ &scan_hex;
+'num'<Value>  [0-9]+                 &scan_num;
+'hex'<Value>  0x([0-9]|[A-F]|[a-f])+ &scan_hex;
+'hex'<Value>  0h([0-9]|[A-F]|[a-f])+ &scan_hex;
 
 /* Grammar Rules */
-total<Expr>: add        &reduce_total
+total<Value>: add        &reduce_total
     ;
-add<Expr>: mul
+add<Value>: mul
     | add '+' mul       &reduce_add_mul
     | add '-' mul       &reduce_sub_mul
     ;
-mul<Expr>: int
+mul<Value>: int
     | mul '*' int       &reduce_mul_int
     | mul '/' int       &reduce_div_int
     | '(' add ')'       &reduce_paren
     ;
-int<Expr>: 'num'
+int<Value>: 'num'
     | 'hex'
     ;
 
