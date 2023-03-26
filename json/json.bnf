@@ -46,7 +46,7 @@ members<JsonObject>
     : member                &members_reduce
     | members ',' member    &members_member
     ;
-member<JsonMember>
+member<JsonObject>
     : 'string' ':' value    &member_reduce
     ;
 array<JsonArray>

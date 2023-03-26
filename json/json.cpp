@@ -125,25 +125,24 @@ object_members(Table* table, unique_ptr<JsonObject>& E1) {
 }
 
 unique_ptr<JsonObject>
-members_reduce(Table* table, unique_ptr<JsonMember>& E1) {
-    auto result = std::make_unique<JsonObject>();
-    result->values[E1->name] = std::move(E1->value);
-    return result;
+members_reduce(Table* table, unique_ptr<JsonObject>& E1) {
+    return std::move(E1);
 }
 
 unique_ptr<JsonObject>
 members_member(Table* table, unique_ptr<JsonObject>& E1,
-               unique_ptr<JsonMember>& E2) {
-    E1->values[E2->name] = std::move(E2->value);
+               unique_ptr<JsonObject>& E2) {
+    for (auto& member : E2->values) {
+        E1->values[member.first] = std::move(member.second);
+    }
     return std::move(E1);
 }
 
-unique_ptr<JsonMember>
+unique_ptr<JsonObject>
 member_reduce(Table* table, unique_ptr<JsonString>& E1,
               unique_ptr<JsonValue>& E2) {
-    auto result = std::make_unique<JsonMember>();
-    result->name = std::move(E1->value);
-    result->value = std::move(E2);
+    auto result = std::make_unique<JsonObject>();
+    result->values[E1->value] = std::move(E2);
     return result;
 }
 

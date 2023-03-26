@@ -38,12 +38,6 @@ class JsonObject : public JsonValue
     bool        get_bool  (const std::string& name) const;
 };
 
-class JsonMember : public Value {
-  public:
-    std::string name;
-    std::unique_ptr<JsonValue> value;
-};
-
 /******************************************************************************/
 class JsonArray : public JsonValue
 {
