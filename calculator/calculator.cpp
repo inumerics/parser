@@ -6,6 +6,50 @@
 using std::unique_ptr;
 
 /**
+ * Example of a calculator program.
+ */
+int
+main(int argc, const char * argv[])
+{
+    if (argc != 2) {
+        std::cerr << "Expected a single input string.\n";
+        return 1;
+    }
+    
+    // TODO Just build on the stack.
+    auto parser = std::make_unique<Calculator>();
+    parser->start();
+    if (!parser) {
+        std::cerr << "Error while building parser.\n";
+        return 1;
+    }
+    
+    Table table;
+    
+    std::stringstream in(argv[1]);
+    
+    while (true) {
+        int c = in.get();
+        if (c == EOF) {
+            bool ok = parser->scan_end(&table);
+            if (!ok) {
+                std::cerr << "Unexpected end of the input.\n";
+                return 1;
+            }
+            break;
+        } else {
+            bool ok = parser->scan(&table, c);
+            if (!ok) {
+                std::cerr << "Unexpected character.\n";
+                return 1;
+            }
+        }
+    }
+    
+    return 0;
+}
+
+/**
  * Types and functions of the calculator.  Each terminal can specify an
  * associated class and the name of a function that takes the matched string
  * from the input and returns a value of that class.
@@ -236,44 +280,4 @@ Calculator::pop(size_t count)
     }
 };
 
-/******************************************************************************/
-int
-main(int argc, const char * argv[])
-{
-    if (argc != 2) {
-        std::cerr << "Expected a single input string.\n";
-        return 1;
-    }
-    
-    // TODO Just build on the stack.
-    auto parser = std::make_unique<Calculator>();
-    parser->start();
-    if (!parser) {
-        std::cerr << "Error while building parser.\n";
-        return 1;
-    }
-    
-    Table table;
-    
-    std::stringstream in(argv[1]);
-    
-    while (true) {
-        int c = in.get();
-        if (c == EOF) {
-            bool ok = parser->scan_end(&table);
-            if (!ok) {
-                std::cerr << "Unexpected end of the input.\n";
-                return 1;
-            }
-            break;
-        } else {
-            bool ok = parser->scan(&table, c);
-            if (!ok) {
-                std::cerr << "Unexpected character.\n";
-                return 1;
-            }
-        }
-    }
-    
-    return 0;
-}
+

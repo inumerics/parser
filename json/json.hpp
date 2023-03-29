@@ -1,9 +1,8 @@
-/*******************************************************************************
+/**
  * Json parser built using a parser generator.  The parser reads the grammar for
  * json format and generates action tables.  These action tables are compiled
- * along with the user defined functions to build the reader.
+ * along with the user defined functions to build the reader a JSON string.
  */
-
 #ifndef json_hpp
 #define json_hpp
 
@@ -11,47 +10,28 @@
 #include <vector>
 #include <map>
 
-/******************************************************************************/
+/**
+ * Base class for values built during parsing.  The class provides a virtual
+ * destructor to release memory during parsing.
+ */
 class Value {
-public:
+  public:
     virtual ~Value() = default;
 };
 
-/******************************************************************************/
+class Table {
+};
+
+/**
+ * Base class for all JSON values built during parsing.  The JSON array and
+ * object types use pointers to this class for the JSON values they contain.
+ */
 class JsonValue : public Value {
 };
 
-class JsonObject;
-class JsonArray;
-
-/******************************************************************************/
-class JsonObject : public JsonValue
-{
-  public:
-    std::map<std::string, std::unique_ptr<JsonValue>> values;
-    
-    bool has_key(const std::string& name) const;
-    
-    JsonObject* get_object(const std::string& name) const;
-    JsonArray*  get_array (const std::string& name) const;
-    std::string get_string(const std::string& name) const;
-    bool        get_bool  (const std::string& name) const;
-};
-
-/******************************************************************************/
-class JsonArray : public JsonValue
-{
-  public:
-    std::vector<std::unique_ptr<JsonValue>> values;
-};
-
-/******************************************************************************/
-class JsonString : public JsonValue {
-  public:
-    JsonString(const std::string& value);
-    std::string value;
-};
-
+/**
+ * Class for each JSON data type.
+ */
 class JsonNumber : public JsonValue {
   public:
     JsonNumber(double value);
@@ -65,15 +45,26 @@ class JsonBool : public JsonValue {
 };
 
 class JsonNull : public JsonValue {
-};
-
-/******************************************************************************/
-class Table {
   public:
-    std::unique_ptr<JsonValue> value;
 };
 
-/*****************************************************************************
+class JsonString : public JsonValue {
+  public:
+    JsonString(const std::string& value);
+    std::string value;
+};
+
+class JsonArray : public JsonValue {
+  public:
+    std::vector<std::unique_ptr<JsonValue>> values;
+};
+
+class JsonObject : public JsonValue {
+  public:
+    std::map<std::string, std::unique_ptr<JsonValue>> values;
+};
+
+/**
  * Classes defined by the state machine to parse a user defined grammar.  The
  * rules of the grammar are written as a nonterminal followed by zero or more
  * symbols.  The parser generates a set of nodes and states for identifing
@@ -90,18 +81,18 @@ extern State state0;
 
 extern Symbol endmark;
 
-/*****************************************************************************
+/**
  * Function defined by the lexer for identifing terminals in an input string.
- * Node next determines the next node for a
- * given input character.  If no node is returned, check the current node to
- * determine the accepted symbol for the input string.  With the accepted
- * symbol, call scan to get the value for the symbol.
+ * Node next determines the next node for a given input character.  If no node
+ * is returned, check the current node to determine the accepted symbol for the
+ * input string.  With the accepted symbol, call scan to get the value for the
+ * symbol.
  */
 Node*   node_next(Node* node, int c);
 Symbol* node_accept(Node* node);
 Value*  node_scan(Node* node, Table*, const std::string&);
 
-/*****************************************************************************
+/**
  * Function defined by the parser.  For each new symbol, the parser determines
  * if the symbol should be pushed onto the stack, or reduced by a rule of the
  * grammar.  If the top symbols are reduced by a rule, call the reduce function
@@ -116,14 +107,9 @@ Value*  rule_reduce(Rule* rule, Table*, Value**);
 
 State* find_goto(State* state, Symbol* sym);
 
-/*******************************************************************************
+/**
  * With the grammar and the custom functions defined, the parser generator is
- * run to build the table of actions.  However, two additional functions are
- * needed to fully implement the calculator.  The first function reads the input
- * string one character at a time looking for terminals.  The second function is
- * passed the found terminal and based on the action table either adds the
- * terminal to a stack, or reduces the stack by a grammar rule while calling its
- * associated function.
+ * run to build the table of actions.
  */
 class Parser {
   public:

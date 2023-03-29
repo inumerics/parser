@@ -6,62 +6,57 @@
 #include <fstream>
 using std::unique_ptr;
 
-/******************************************************************************/
+/**
+ * Example of parsing a JSON string into objects.
+ */
+int
+main(int argc, const char* argv[])
+{
+    if (argc != 2) {
+        std::cerr << "Expected a single input string.\n";
+        return 1;
+    }
+    
+    Parser parser;
+    parser.start();
+    
+    Table table;
+    
+    std::stringstream in(argv[1]);
+    
+    while (true) {
+        int c = in.get();
+        if (c == EOF) {
+            bool ok = parser.scan_end(&table);
+            if (!ok) {
+                std::cerr << "Unexpected end of the input.\n";
+                return 1;
+            }
+            break;
+        } else {
+            bool ok = parser.scan(&table, c);
+            if (!ok) {
+                std::cerr << "Unexpected character.\n";
+                return 1;
+            }
+        }
+    }
+    
+    return 0;
+}
+
+/**
+ * JSON value constructors.
+ */
 JsonBool::JsonBool(bool value): value(value) {}
 
 JsonNumber::JsonNumber(double value): value(value) {}
 
 JsonString::JsonString(const std::string& value): value(value) {}
 
-/******************************************************************************/
-bool
-JsonObject::has_key(const std::string& name) const {
-    return (values.count(name) > 0);
-}
-
-JsonObject*
-JsonObject::get_object(const std::string& name) const{
-    if (values.count(name) > 0) {
-        return dynamic_cast<JsonObject*>(values.at(name).get());
-    } else {
-        return nullptr;
-    }
-}
-
-JsonArray*
-JsonObject::get_array(const std::string& name) const {
-    if (values.count(name) > 0) {
-        return dynamic_cast<JsonArray*>(values.at(name).get());
-    } else {
-        return nullptr;
-    }
-}
-
-std::string
-JsonObject::get_string(const std::string& name) const
-{
-    if (values.count(name) > 0) {
-        JsonString* str = dynamic_cast<JsonString*>(values.at(name).get());
-        if (str) {
-            return str->value;
-        }
-    }
-    return "";
-}
-
-bool
-JsonObject::get_bool(const std::string& name) const
-{
-    if (values.count(name) > 0) {
-        JsonBool* value = dynamic_cast<JsonBool*>(values.at(name).get());
-        if (value) {
-            return value->value;
-        }
-    }
-    return false;
-}
-
-/******************************************************************************/
+/**
+ * Scan actions to convert terminals into vales.
+ */
 unique_ptr<JsonBool>
 read_true(Table* table, const std::string& text) {
     return std::make_unique<JsonBool>(true);
@@ -92,11 +87,12 @@ read_string(Table* table, const std::string& text)
     }
 }
 
-/******************************************************************************/
+/**
+ * Reduces values on the stack by one of the grammar rules.
+ */
 unique_ptr<JsonValue>
 reduce_json(Table* table, unique_ptr<JsonValue>& E1) {
-    table->value = std::move(E1);
-    return std::make_unique<JsonValue>();
+    return std::move(E1);
 }
 
 unique_ptr<JsonValue>
@@ -130,7 +126,8 @@ members_reduce(Table* table, unique_ptr<JsonObject>& E1) {
 }
 
 unique_ptr<JsonObject>
-members_member(Table* table, unique_ptr<JsonObject>& E1,
+members_member(Table* table,
+               unique_ptr<JsonObject>& E1,
                unique_ptr<JsonObject>& E2) {
     for (auto& member : E2->values) {
         E1->values[member.first] = std::move(member.second);
@@ -139,7 +136,8 @@ members_member(Table* table, unique_ptr<JsonObject>& E1,
 }
 
 unique_ptr<JsonObject>
-member_reduce(Table* table, unique_ptr<JsonString>& E1,
+member_reduce(Table* table,
+              unique_ptr<JsonString>& E1,
               unique_ptr<JsonValue>& E2) {
     auto result = std::make_unique<JsonObject>();
     result->values[E1->value] = std::move(E2);
@@ -164,13 +162,16 @@ values_reduce(Table* table, unique_ptr<JsonValue>& E1) {
 }
 
 unique_ptr<JsonArray>
-values_value(Table* table, unique_ptr<JsonArray>& E1,
+values_value(Table* table,
+             unique_ptr<JsonArray>& E1,
              unique_ptr<JsonValue>& E2) {
     E1->values.push_back(std::move(E2));
     return std::move(E1);
 }
 
-/******************************************************************************/
+/**
+ * Initialize the parser with the initial state on the stack.
+ */
 void
 Parser::start()
 {
@@ -187,16 +188,9 @@ Parser::start()
 };
 
 /**
- * The calculator calls scan with the next input character to match terminals in
- * input.  If a terminal is found,  the calculator updates the stack based on
- * the action in the parse table.  Based on the action in the parse table, the
- * new symbol is either shifted onto the stack, or the stack is reduced by a
- * rule and the user defined action is called with the values on top of the
- * stack as arguments.  This process is continued until the end of the input at
- * which point the end mark symbol is used to reduce the remaining symbols still
- * of the stack into a single value.  The following function reads an input one
- * character at a time until a terminal is found.  When a symbol is found the
- * function calls another function to update the state of the calculator.
+ * The parser calls scan with the next input character to match terminals in
+ * input.  If a terminal is found,  the parser advances the stack based on
+ * the action in the parse table.
  */
 bool
 Parser::scan(Table* table, int c)
@@ -230,6 +224,11 @@ Parser::scan(Table* table, int c)
     }
 }
 
+/**
+ * The scanning process continues until the end of the input at which point the
+ * end mark symbol is used to reduce the remaining symbols still on the stack
+ * into a single value.
+ */
 bool
 Parser::scan_end(Table* table)
 {
@@ -268,16 +267,14 @@ Parser::advance(Table* table, Symbol* sym, Value* val)
             push(next, sym, val);
             return true;
         }
-        
-        
+                
         bool accept = false;
         Rule* rule = find_reduce(top, sym, &accept);
         
         if (rule) {
             size_t length = 0;
             Symbol* nonterm = rule_nonterm(rule, &length);
-            
-            
+                    
             Value* result = rule_reduce(rule, table, values.data() + values.size());
             pop(length);
             
@@ -294,7 +291,6 @@ Parser::advance(Table* table, Symbol* sym, Value* val)
     }
 };
 
-/******************************************************************************/
 void
 Parser::push(State* state, Symbol* sym, Value* val)
 {
@@ -312,45 +308,3 @@ Parser::pop(size_t count)
         values.pop_back();
     }
 };
-
-/******************************************************************************/
-int
-main(int argc, const char * argv[])
-{
-    if (argc != 2) {
-        std::cerr << "Expected a single input string.\n";
-        return 1;
-    }
-    
-    // TODO Just build on the stack.
-    auto parser = std::make_unique<Parser>();
-    parser->start();
-    if (!parser) {
-        std::cerr << "Error while building parser.\n";
-        return 1;
-    }
-    
-    Table table;
-    
-    std::stringstream in(argv[1]);
-    
-    while (true) {
-        int c = in.get();
-        if (c == EOF) {
-            bool ok = parser->scan_end(&table);
-            if (!ok) {
-                std::cerr << "Unexpected end of the input.\n";
-                return 1;
-            }
-            break;
-        } else {
-            bool ok = parser->scan(&table, c);
-            if (!ok) {
-                std::cerr << "Unexpected character.\n";
-                return 1;
-            }
-        }
-    }
-    
-    return 0;
-}
