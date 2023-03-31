@@ -6,6 +6,7 @@ LEXER   = lexer/
 BUILD   = build/
 TEST    = test/
 CALC    = calculator/
+JSON    = json/
 BIN	    = bin/
 
 HEADERS  = $(LEXER)finite.hpp $(LEXER)literal.hpp $(LEXER)regex.hpp $(LEXER)node.hpp \
@@ -56,16 +57,38 @@ $(BUILD)states.o: $(BUILD)states.cpp
 
 $(BUILD)states.cpp: $(CALC)calculator.bnf $(BIN)parser | $(BUILD)
 	$(BIN)parser -o $(BUILD)states.cpp $(CALC)calculator.bnf
+	
+#*******************************************************************************
+.PHONY: json
+
+json: $(BIN)json
+	cd $(JSON); ../$(BIN)json "{\"test\":1}"
+
+$(BIN)json: $(BUILD)json.o $(BUILD)json_states.o
+	$(CC) $(CXXFLAGS) -o $@ $^
+
+$(BUILD)json.o: $(JSON)json.cpp $(JSON)json.hpp $(HEADERS) | $(BUILD)
+	$(CC) $(CXXFLAGS) -c -o $@ $<
+
+$(BUILD)json_states.o: $(BUILD)json_states.cpp
+	$(CC) $(CXXFLAGS) -I $(JSON) -c -o $@ $<
+
+$(BUILD)json_states.cpp: $(JSON)json.bnf $(BIN)parser | $(BUILD)
+	$(BIN)parser -o $(BUILD)json_states.cpp $(JSON)json.bnf
 
 #*******************************************************************************
 clean:
 	rm -f $(BIN)parser
 	rm -f $(BIN)calculator
+	rm -f $(BIN)json
 	rm -f -d $(BIN)
 
 	rm -f $(OBJECTS)
 	rm -f $(BUILD)calculator.o
+	rm -f $(BUILD)json.o
 	rm -f $(BUILD)states.o
 	rm -f $(BUILD)states.cpp
+	rm -f $(BUILD)json_states.o
+	rm -f $(BUILD)json_states.cpp
 	rm -f $(BUILD)main.o
 	rm -f -d $(BUILD)

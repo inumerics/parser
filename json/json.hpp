@@ -1,7 +1,7 @@
 /**
- * Json parser built using a parser generator.  The parser reads the grammar for
- * json format and generates action tables.  These action tables are compiled
- * along with the user defined functions to build the reader a JSON string.
+ * JSON parser built using a parser generator.  The generator reads the grammar
+ * for json format and writes action tables.  These action tables are compiled
+ * along with the user defined functions to build the JSON reader.
  */
 #ifndef json_hpp
 #define json_hpp
@@ -70,16 +70,15 @@ class JsonObject : public JsonValue {
  * symbols.  The parser generates a set of nodes and states for identifing
  * symbols in a string and reducing the input symbols by rules of the grammar.
  */
-struct Symbol;
 struct Rule;
+struct Symbol;
+extern Symbol endmark;
 
 struct Node;
 extern Node node0;
 
 struct State;
 extern State state0;
-
-extern Symbol endmark;
 
 /**
  * Function defined by the lexer for identifing terminals in an input string.

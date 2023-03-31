@@ -12,7 +12,8 @@
 
 /**
  * Base class of all arguments passed to the user defined functions of the
- * grammar.
+ * grammar.  The class provides a virtual destructor for releasing memory during
+ * parsing.
  */
 class Value {
   public:
@@ -70,14 +71,8 @@ Value*  rule_reduce(Rule* rule, Table*, Value**);
 
 State* find_goto(State* state, Symbol* sym);
 
-/*******************************************************************************
- * With the grammar and the custom functions defined, the parser generator is
- * run to build the table of actions.  However, two additional functions are
- * needed to fully implement the calculator.  The first function reads the input
- * string one character at a time looking for terminals.  The second function is
- * passed the found terminal and based on the action table either adds the
- * terminal to a stack, or reduces the stack by a grammar rule while calling its
- * associated function.
+/**
+ * Calculator built with an action table from with a parser generator.
  */
 class Calculator {
   public:
@@ -87,7 +82,7 @@ class Calculator {
     bool scan(Table* table, int c);
     
     /** Advance the parser at the end of the input. */
-    bool scan_end(Table* table);
+    std::unique_ptr<Value> scan_end(Table* table);
     
   private:
     

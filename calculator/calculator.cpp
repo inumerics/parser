@@ -16,29 +16,26 @@ main(int argc, const char * argv[])
         return 1;
     }
     
-    // TODO Just build on the stack.
-    auto parser = std::make_unique<Calculator>();
-    parser->start();
-    if (!parser) {
-        std::cerr << "Error while building parser.\n";
-        return 1;
-    }
+    Calculator parser;
+    parser.start();
     
     Table table;
     
     std::stringstream in(argv[1]);
     
+    std::unique_ptr<Value> result;
+    
     while (true) {
         int c = in.get();
         if (c == EOF) {
-            bool ok = parser->scan_end(&table);
-            if (!ok) {
+            result = parser.scan_end(&table);
+            if (!result) {
                 std::cerr << "Unexpected end of the input.\n";
                 return 1;
             }
             break;
         } else {
-            bool ok = parser->scan(&table, c);
+            bool ok = parser.scan(&table, c);
             if (!ok) {
                 std::cerr << "Unexpected character.\n";
                 return 1;
@@ -149,8 +146,8 @@ Calculator::start()
     values.clear();
     
     states.push_back(&state0);
-    symbols.push_back(nullptr);
-    values.push_back(nullptr);
+//    symbols.push_back(nullptr);
+//    values.push_back(nullptr);
 };
 
 /**
@@ -197,7 +194,7 @@ Calculator::scan(Table* table, int c)
     }
 }
 
-bool
+std::unique_ptr<Value>
 Calculator::scan_end(Table* table)
 {
     Symbol* accept = node_accept(node);
@@ -205,17 +202,17 @@ Calculator::scan_end(Table* table)
     if (accept) {
         Value* value = node_scan(node, table, text);
         if (!advance(table, accept, value)) {
-            return false;
+            return nullptr;
         }
     } else if (node != &node0) {
-        return false;
+        return nullptr;
     }
     
     // TODO Check for accept.
     if (!advance(table, &endmark, nullptr)) {
-        return false;
+        return nullptr;
     }
-    return true;
+    return std::unique_ptr<Value>(values.front());
 };
 
 /**
