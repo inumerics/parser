@@ -10,7 +10,6 @@
 		966057E629A466F50040D25B /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 966057E529A466F50040D25B /* json.cpp */; };
 		966057EE29A46B9F0040D25B /* json.bnf in Sources */ = {isa = PBXBuildFile; fileRef = 966057EA29A467BB0040D25B /* json.bnf */; };
 		9676CA0229A16F14009397B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9676CA0129A16F14009397B1 /* main.cpp */; };
-		96B1613529A1B08800B90F93 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 96B1613429A1B08800B90F93 /* Makefile */; };
 		96EF81B029A1733A001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
 		96EF81B929A173A6001CC416 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81B829A173A6001CC416 /* test.cpp */; };
 		96EF81BD29A17403001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
@@ -71,6 +70,23 @@
 			script = "cd \"$DERIVED_FILE_DIR\"\n$BUILT_PRODUCTS_DIR/parser -o states.cpp $INPUT_FILE_PATH\n";
 		};
 /* End PBXBuildRule section */
+
+/* Begin PBXContainerItemProxy section */
+		964245A429DA6FA600894CF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9676C9F629A16F14009397B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9676C9FD29A16F14009397B1;
+			remoteInfo = parser;
+		};
+		964245A629DA6FAB00894CF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9676C9F629A16F14009397B1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9676C9FD29A16F14009397B1;
+			remoteInfo = parser;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		966057E129A466F50040D25B /* CopyFiles */ = {
@@ -300,6 +316,7 @@
 				966057ED29A46B600040D25B /* PBXBuildRule */,
 			);
 			dependencies = (
+				964245A729DA6FAB00894CF7 /* PBXTargetDependency */,
 			);
 			name = json;
 			productName = json;
@@ -352,6 +369,7 @@
 				96EF81F729A19791001CC416 /* PBXBuildRule */,
 			);
 			dependencies = (
+				964245A529DA6FA600894CF7 /* PBXTargetDependency */,
 			);
 			name = calculator;
 			productName = calculator;
@@ -365,7 +383,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					966057E229A466F50040D25B = {
 						CreatedOnToolsVersion = 14.2;
@@ -428,7 +446,6 @@
 				96EF81E729A18184001CC416 /* code.cpp in Sources */,
 				96EF81CA29A17C54001CC416 /* node.cpp in Sources */,
 				96EF81D329A17E4E001CC416 /* symbols.cpp in Sources */,
-				96B1613529A1B08800B90F93 /* Makefile in Sources */,
 				9676CA0229A16F14009397B1 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,11 +479,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		964245A529DA6FA600894CF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9676C9FD29A16F14009397B1 /* parser */;
+			targetProxy = 964245A429DA6FA600894CF7 /* PBXContainerItemProxy */;
+		};
+		964245A729DA6FAB00894CF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9676C9FD29A16F14009397B1 /* parser */;
+			targetProxy = 964245A629DA6FAB00894CF7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
 		966057E729A466F50040D25B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -475,6 +506,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -512,6 +544,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -570,6 +603,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -592,6 +626,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -600,6 +635,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -608,6 +644,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -616,6 +653,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -624,6 +662,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -632,6 +671,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

@@ -357,10 +357,7 @@ Grammar::read_include(istream& in)
         int c = in.peek();
         
         if (c == '\n') {
-            // TODO Move to after the loop.
             in.get();
-            line.clear();
-            line_number++;
             break;
         } else if (isprint(c)) {
             text.push_back(next(in));
@@ -368,6 +365,9 @@ Grammar::read_include(istream& in)
             return false;
         }
     }
+    
+    line.clear();
+    line_number++;
     
     includes.push_back(text);
     return true;

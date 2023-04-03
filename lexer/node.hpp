@@ -22,7 +22,7 @@
  */
 class Node
 {
-public:
+  public:
     std::set<Finite*> items;
     
     /** Accepted term when no new node is next. */
@@ -42,7 +42,6 @@ public:
         int first;
         int last;
         bool operator<(const Range& other) const;
-        void write(std::ostream& out) const;
     };
     
     std::map<Range, Node*> nexts;
@@ -64,12 +63,12 @@ public:
  */
 class Group
 {
-public:
+  public:
     std::vector<Node*> nodes;
     
     std::vector<std::unique_ptr<Group>> divide(const std::map<Node*, Group*>& lookup);
     
-private:
+  private:
     bool belongs(Node* node, const std::map<Node*, Group*>& lookup);
 };
 

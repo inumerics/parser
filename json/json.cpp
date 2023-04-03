@@ -243,7 +243,6 @@ Parser::scan_end(Table* table)
         return false;
     }
     
-    // TODO Check for accept.
     if (!advance(table, &endmark, nullptr)) {
         return false;
     }

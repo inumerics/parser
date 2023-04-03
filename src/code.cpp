@@ -91,14 +91,16 @@ rule_nonterm(Rule* rule, size_t* length) {
     return rule->nonterm;
 }
 
-
 Value*
 rule_reduce(Rule* rule, Table* table, Value** values) {
     if (rule->reduce) {
         return rule->reduce(table, values);
     } else {
-        // TODO Check rule length is one.
-        return *(values - 1);
+        if (rule->length == 1) {
+            return *(values - 1);
+        } else {
+            return nullptr;
+        }
     }
 }
 
@@ -277,7 +279,7 @@ Code::write_scan(Node* node, std::map<Node*, int>& ids, std::ostream& out)
     out << "next" << ids[node] << "(int c) {\n";
     for (auto next : node->nexts) {
         out << "    if (";
-        next.first.write(out);
+        write_range(&next.first, out);
         out << ") { return &node" << ids[next.second] << "; }\n";
     }
     out << "    return nullptr;\n";
@@ -305,6 +307,33 @@ Code::write_node(Node* node, std::map<Node*, int>& ids, std::ostream& out)
         out << ", nullptr";
     }
     out << "};\n";
+}
+
+void
+Code::write_range(const Node::Range* range, std::ostream& out)
+{
+    int first = range->first;
+    int last  = range->last;
+    
+    if (first == last) {
+        if (isprint(first) && first != '\'' && first != '\\') {
+            out << "c == '" << (char)first << "'";
+        } else {
+            out << "c == " << first << "";
+        }
+    } else {
+        if (isprint(first) && isprint(last)
+            && first != '\'' && last != '\''
+            && first != '\\' && last != '\\') {
+            out << "(c >= '" << (char)first << "')";
+            out << " && ";
+            out << "(c <= '" << (char)last << "')";
+        } else {
+            out << "(c >= " << first << ")";
+            out << " && ";
+            out << "(c <= " << last << ")";
+        }
+    }
 }
 
 /******************************************************************************/

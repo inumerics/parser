@@ -114,31 +114,6 @@ Node::Range::operator<(const Range& other) const {
     return last < other.first;
 }
 
-// TODO move to the write class.
-void
-Node::Range::write(std::ostream& out) const
-{
-    if (first == last) {
-        if (isprint(first) && first != '\'' && first != '\\') {
-            out << "c == '" << (char)first << "'";
-        } else {
-            out << "c == " << first << "";
-        }
-    } else {
-        if (isprint(first) && isprint(last)
-            && first != '\'' && last != '\''
-            && first != '\\' && last != '\\') {
-            out << "(c >= '" << (char)first << "')";
-            out << " && ";
-            out << "(c <= '" << (char)last << "')";
-        } else {
-            out << "(c >= " << first << ")";
-            out << " && ";
-            out << "(c <= " << last << ")";
-        }
-    }
-}
-
 /******************************************************************************/
 std::vector<std::unique_ptr<Group>>
 Group::divide(const std::map<Node*, Group*>& lookup)

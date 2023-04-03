@@ -38,6 +38,7 @@ public:
     static void write_eval( Term* term, ostream& out);
     static void write_scan( Node* node, std::map<Node*, int>& ids, ostream& out);
     static void write_node( Node* node, std::map<Node*, int>& ids, ostream& out);
+    static void write_range(const Node::Range* range, ostream& out);
     
     /**
      * Writes the functions that calls the user defined action for a given rule.

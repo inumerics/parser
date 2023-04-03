@@ -208,7 +208,6 @@ Calculator::scan_end(Table* table)
         return nullptr;
     }
     
-    // TODO Check for accept.
     if (!advance(table, &endmark, nullptr)) {
         return nullptr;
     }
@@ -240,7 +239,6 @@ Calculator::advance(Table* table, Symbol* sym, Value* val)
         if (rule) {
             size_t length = 0;
             Symbol* nonterm = rule_nonterm(rule, &length);
-            
             
             Value* result = rule_reduce(rule, table, values.data() + values.size());
             pop(length);

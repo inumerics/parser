@@ -4,7 +4,8 @@
 bool
 Solver::solve(Grammar& grammar)
 {
-    if (grammar.nonterms.size() == 0 || grammar.nonterms.front()->rules.size() == 0) {
+    if (grammar.nonterms.size() == 0 ||
+            grammar.nonterms.front()->rules.size() == 0) {
         std::cerr << "Error: No grammar rules to solve.\n";
         return false;
     }
@@ -12,7 +13,6 @@ Solver::solve(Grammar& grammar)
     Nonterm::solve_first(grammar.nonterms);
     Nonterm::solve_follows(grammar.nonterms, &grammar.endmark);
     
-    // TODO Check there is one rule.
     Nonterm* nonterm = grammar.nonterms.front().get();
     Nonterm::Rule* rule = nonterm->rules.front().get();
     
@@ -27,7 +27,6 @@ Solver::solve(Grammar& grammar)
     
     states.push_back(std::move(state));
     
-    // TODO Combine the term and nonterm.
     while (checking.size() > 0)
     {
         State* state = checking.back();
