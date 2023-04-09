@@ -58,7 +58,6 @@ Grammar::read_grammar(std::istream& in)
         }
     }
     
-    // TODO Remove this numbering.
     size_t id = 0;
     size_t rule_id = 0;
     for (auto& nonterm : nonterms) {

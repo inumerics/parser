@@ -24,6 +24,24 @@ Nonterm::solve_first(bool *found)
 }
 
 void
+Nonterm::solve_firsts(const std::vector<Symbol*>& symbols,
+                      std::set<Symbol*>* firsts)
+{
+    for (Symbol* sym : symbols) {
+        Nonterm* nonterm = dynamic_cast<Nonterm*>(sym);
+        if (nonterm) {
+            firsts->insert(nonterm->firsts.begin(), nonterm->firsts.end());
+            if (!nonterm->empty_first) {
+                return;
+            }
+        } else {
+            firsts->insert(sym);
+            return;
+        }
+    }
+}
+
+void
 Nonterm::insert_firsts(Rule* rule, bool* found)
 {
     for (auto sym : rule->product) {

@@ -30,7 +30,7 @@ State::closure()
             product.push_back(item.ahead);
             
             std::set<Symbol*> terms;
-            firsts(product, &terms);
+            Nonterm::solve_firsts(product, &terms);
             
             for (auto& rule : nonterm->rules) {
                 for (auto term : terms) {
@@ -41,23 +41,6 @@ State::closure()
                     }
                 }
             }
-        }
-    }
-}
-
-void
-State::firsts(const vector<Symbol*>& symbols, std::set<Symbol*>* firsts)
-{
-    for (Symbol* sym : symbols) {
-        Nonterm* nonterm = dynamic_cast<Nonterm*>(sym);
-        if (nonterm) {
-            firsts->insert(nonterm->firsts.begin(), nonterm->firsts.end());
-            if (!nonterm->empty_first) {
-                return;
-            }
-        } else {
-            firsts->insert(sym);
-            return;
         }
     }
 }

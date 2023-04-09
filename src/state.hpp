@@ -46,7 +46,7 @@ public:
  */
 class State
 {
-public:
+  public:
     State(size_t id);
     size_t id;
     
@@ -59,7 +59,7 @@ public:
     
     /** Shift or reduce actions for a given state and next symbol. */
     class Actions {
-    public:
+      public:
         size_t id = 0;
         std::map<const Symbol*, State*> shift;
         std::map<const Symbol*, Nonterm::Rule*> accept;
@@ -87,11 +87,6 @@ public:
     
     void print(std::ostream& out) const;
     void print_items(std::ostream& out) const;
-    
-private:
-    // TODO Move to the nonterm.
-    static void firsts(const std::vector<Symbol*>& symbols,
-                       std::set<Symbol*>* firsts);
 };
 
 #endif

@@ -1,7 +1,5 @@
 #include "calculator.hpp"
 
-'test';
-
 /* Integer Values */
 'num'<Expr>  [0-9]+     &scan_num;
 

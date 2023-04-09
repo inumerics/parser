@@ -21,22 +21,32 @@ Display::print_lexer(const Lexer& lexer, std::ostream& out)
 static void
 print_range(const Node::Range& range, std::ostream& out)
 {
-    // TODO Fix for unicode.
-    char a = range.first;
-    char b = range.last;
+    int a = range.first;
+    int b = range.last;
     
     if (a == b) {
-        if (isprint(a) && a != '\'') {
-            out << (char)a << "    ";
+        if (a >= 128) {
+            out << "\\u" << std::hex << a;
+        } else if (isprint(a) && a != ' ' && a != '\'') {
+            out << (char)a;
         } else {
-            out << a;
+            out << "\\u" << std::hex << a;
         }
     } else {
-        if (isprint(a) && isprint(b)
-            && a != '\'' && b != '\'') {
-            out << (char)a << " - " << (char)b;
+        if (a >= 128) {
+            out << "\\u" << std::hex << a;
+        } else if (isprint(a) && a != ' ' && a != '\'') {
+            out << (char)a;
         } else {
-            out << a << " - " << b;
+            out << "\\u" << std::hex << a;
+        }
+        out << " - ";
+        if (b >= 128) {
+            out << "\\u" << std::hex << b;
+        } else if (isprint(b) && b != ' ' && b != '\'') {
+            out << (char)b;
+        } else {
+            out << "\\u" << std::hex << b;
         }
     }
 }

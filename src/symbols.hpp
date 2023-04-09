@@ -22,10 +22,10 @@
  */
 class Nonterm : public Symbol
 {
-public:
+  public:
     Nonterm(const std::string& name);
     std::string name;
-    size_t id;
+    size_t id = 0;
     
     /**
      * All nonterminals have one or more production rules, vectors of symbols,
@@ -35,14 +35,14 @@ public:
      * implement the functionality of the final program being built.
      */
     class Rule {
-    public:
+      public:
         Rule(Nonterm* nonterm);
         Rule(Nonterm* nonterm, const std::string& action);
         
         Nonterm* nonterm;
         std::vector<Symbol*> product;
         std::string action;
-        size_t id;
+        size_t id = 0;
         
         void print(std::ostream& out) const;
         void write(std::ostream& out) const;
@@ -85,6 +85,9 @@ public:
     void print_rules(std::ostream& out) const;
     void print_firsts(std::ostream& out) const;
     void print_follows(std::ostream& out) const;
+    
+    static void solve_firsts(const std::vector<Symbol*>& symbols,
+                             std::set<Symbol*>* firsts);
     
 private:
     /** Called by solve for finding the set of firsts and follows. */

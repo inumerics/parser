@@ -182,10 +182,10 @@ int test_parser()
     Display::print_lexer(lexer, std::cout);
     //Code::write(grammar, lexer, std::cout);
     
-    Solver parser;
-    parser.solve(grammar);
-    
-    Display::print_parser(grammar, parser, std::cout);
+//    Solver parser;
+//    parser.solve(grammar);
+//
+//    Display::print_parser(grammar, parser, std::cout);
     //Code::write(grammar, parser,  std::cout);
     
     return 0;
@@ -194,9 +194,9 @@ int test_parser()
 int
 main(int argc, char* argv[])
 {
-    test_finite();
-    test_literal();
-    test_regex();
-    test_lexer();
+    //test_finite();
+    //test_literal();
+    //test_regex();
+    //test_lexer();
     test_parser();
 }

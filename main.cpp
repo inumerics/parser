@@ -71,8 +71,7 @@ main(int argc, char* argv[])
     }
     
     lexer.solve();
-    // TODO Add back the reduce step.
-    //lexer.reduce();
+    lexer.reduce();
     
     Solver parser;
     
