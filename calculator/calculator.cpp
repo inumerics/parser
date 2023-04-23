@@ -6,50 +6,8 @@
 using std::unique_ptr;
 
 /**
- * Example of a calculator program.
- */
-int
-main(int argc, const char * argv[])
-{
-    if (argc != 2) {
-        std::cerr << "Expected a single input string.\n";
-        return 1;
-    }
-    
-    Calculator parser;
-    parser.start();
-    
-    Table table;
-    
-    std::stringstream in(argv[1]);
-    
-    std::unique_ptr<Value> result;
-    
-    while (true) {
-        int c = in.get();
-        if (c == EOF) {
-            result = parser.scan_end(&table);
-            if (!result) {
-                std::cerr << "Unexpected end of the input.\n";
-                return 1;
-            }
-            break;
-        } else {
-            bool ok = parser.scan(&table, c);
-            if (!ok) {
-                std::cerr << "Unexpected character.\n";
-                return 1;
-            }
-        }
-    }
-    
-    return 0;
-}
-
-/**
- * Types and functions of the calculator.  Each terminal can specify an
- * associated class and the name of a function that takes the matched string
- * from the input and returns a value of that class.
+ * For terminals that specify an associated class, these functions takes the
+ * matched string from the input and returns a value of that class.
  */
 unique_ptr<Value>
 scan_num(Table* table, const std::string& text)
@@ -68,15 +26,23 @@ scan_hex(Table* table, const std::string& text)
 }
 
 /**
- * Functions listed for the nonterminals of the grammar.  Our program will call
- * these functions when its associated rule is seen in the input.  Each of these
- * function is passed arguments for each terminal in the rule that has an
- * associated type.  Once again, if any function is not implemented, including
- * with the exact argument types, then link errors will occur when building the
- * final calculator program.
+ * Functions called when its associated rule is matched.  Every function is
+ * passed arguments for each terminal in the rule that has an associated type.
+ * If any function is not implemented, including with the exact argument types,
+ * then link errors will occur when building the final program.
  */
 unique_ptr<Value>
-reduce_add_mul(Table* table, unique_ptr<Value>& E1,
+reduce_total(Table* table,
+             unique_ptr<Value>& E1)
+{
+    unique_ptr<Value> result = std::move(E1);
+    std::cout << result->value << "\n";
+    return result;
+}
+
+unique_ptr<Value>
+reduce_add_mul(Table* table,
+               unique_ptr<Value>& E1,
                unique_ptr<Value>& E2)
 {
     unique_ptr<Value> result = std::move(E1);
@@ -85,7 +51,8 @@ reduce_add_mul(Table* table, unique_ptr<Value>& E1,
 }
 
 unique_ptr<Value>
-reduce_sub_mul(Table* table, unique_ptr<Value>& E1,
+reduce_sub_mul(Table* table,
+               unique_ptr<Value>& E1,
                unique_ptr<Value>& E2)
 {
     unique_ptr<Value> result = std::move(E1);
@@ -94,7 +61,8 @@ reduce_sub_mul(Table* table, unique_ptr<Value>& E1,
 }
 
 unique_ptr<Value>
-reduce_mul_int(Table* table, unique_ptr<Value>& E1,
+reduce_mul_int(Table* table,
+               unique_ptr<Value>& E1,
                unique_ptr<Value>& E2)
 {
     unique_ptr<Value> result = std::move(E1);
@@ -103,7 +71,8 @@ reduce_mul_int(Table* table, unique_ptr<Value>& E1,
 }
 
 unique_ptr<Value>
-reduce_div_int(Table* table, unique_ptr<Value>& E1,
+reduce_div_int(Table* table,
+               unique_ptr<Value>& E1,
                unique_ptr<Value>& E2)
 {
     unique_ptr<Value> result = std::move(E1);
@@ -112,42 +81,56 @@ reduce_div_int(Table* table, unique_ptr<Value>& E1,
 }
 
 unique_ptr<Value>
-reduce_paren(Table* table, unique_ptr<Value>& E1)
+reduce_paren(Table* table,
+             unique_ptr<Value>& E1)
 {
     return std::move(E1);
 }
 
 /**
- * By definition, the first rule specified in the grammar is the rule that is
- * followed by the end of the input string and therefore the last nonterminal
- * left on the stack after reading the entire input.  Upon reducing the entire
- * input string to this terminal, the final program calls its associated
- * function. For our calculator example, the last function prints the calculated
- * result of the input expression.
+ * Functions provided by the lexer for identifing terminals given the input
+ * characters.  If no node is returned, check the current node for a matching
+ * symbol and call scan to get its value.
  */
 
-unique_ptr<Value>
-reduce_total(Table* table, unique_ptr<Value>& E1)
-{
-    unique_ptr<Value> result = std::move(E1);
-    std::cout << result->value << "\n";
-    return result;
-}
+Node*   node_next(Node* node, int c);
+Symbol* node_accept(Node* node);
+Value*  node_scan(Node* node, Table*, const std::string&);
 
-/******************************************************************************/
+/**
+ * Functions provided by the parser.  For each new symbol the parser determines
+ * if the symbol should be pushed onto the stack, or reduced by a rule of the
+ * grammar.  If the top symbols are reduced by a rule, call the reduce function
+ * to determine the new value for the top of the stack.  After reducing the
+ * rule, call goto to determine the next state of the parser.
+ */
+
+struct Rule;
+
+State* find_shift(State* state, Symbol* sym);
+Rule*  find_reduce(State* state, Symbol* sym, bool* accept);
+
+Symbol* rule_nonterm(Rule* rule, size_t* length);
+Value*  rule_reduce(Rule* rule, Table*, Value**);
+
+State* find_goto(State* state, Symbol* sym);
+
+/**
+ * At startup, the lexer for finding terminals is in its initial node.  For the
+ * parser, the stack is cleared and the initial state is placed onto the top of
+ * the stack.
+ */
 void
 Calculator::start()
 {
-    this->node = &node0;;
-    this->text.clear();
-    
     states.clear();
     symbols.clear();
     values.clear();
-    
+
+    node = &node0;
+    text.clear();
+
     states.push_back(&state0);
-//    symbols.push_back(nullptr);
-//    values.push_back(nullptr);
 };
 
 /**
@@ -156,11 +139,7 @@ Calculator::start()
  * the action in the parse table.  Based on the action in the parse table, the
  * new symbol is either shifted onto the stack, or the stack is reduced by a
  * rule and the user defined action is called with the values on top of the
- * stack as arguments.  This process is continued until the end of the input at
- * which point the end mark symbol is used to reduce the remaining symbols still
- * of the stack into a single value.  The following function reads an input one
- * character at a time until a terminal is found.  When a symbol is found the
- * function calls another function to update the state of the calculator.
+ * stack as arguments.
  */
 bool
 Calculator::scan(Table* table, int c)
@@ -194,6 +173,11 @@ Calculator::scan(Table* table, int c)
     }
 }
 
+/**
+ * The scanning process is continued until the end of the input.  At the end
+ * of the input the end mark symbol reduces the remaining symbols still on the
+ * stack into a single value.
+ */
 std::unique_ptr<Value>
 Calculator::scan_end(Table* table)
 {
@@ -231,8 +215,7 @@ Calculator::advance(Table* table, Symbol* sym, Value* val)
             push(next, sym, val);
             return true;
         }
-        
-        
+                
         bool accept = false;
         Rule* rule = find_reduce(top, sym, &accept);
         
@@ -256,7 +239,6 @@ Calculator::advance(Table* table, Symbol* sym, Value* val)
     }
 };
 
-/******************************************************************************/
 void
 Calculator::push(State* state, Symbol* sym, Value* val)
 {
@@ -275,4 +257,46 @@ Calculator::pop(size_t count)
     }
 };
 
+/**
+ * The main function reads an input one character at a time until a symbol is
+ * found.  When found, the precomputed actions determine if the symbol is pushed
+ * onto the stack, or if the stack is reduced by a rule of the grammar.
+ */
+int
+main(int argc, const char * argv[])
+{
+    if (argc != 2) {
+        std::cerr << "Expected a single input string.\n";
+        return 1;
+    }
+    
+    Calculator calculator;
+    calculator.start();
+    
+    Table table;
+    
+    std::stringstream in(argv[1]);
+    
+    std::unique_ptr<Value> result;
+    
+    while (true) {
+        int c = in.get();
+        if (c == EOF) {
+            result = calculator.scan_end(&table);
+            if (!result) {
+                std::cerr << "Unexpected end of the input.\n";
+                return 1;
+            }
+            break;
+        } else {
+            bool ok = calculator.scan(&table, c);
+            if (!ok) {
+                std::cerr << "Unexpected character.\n";
+                return 1;
+            }
+        }
+    }
+    
+    return 0;
+}
 

@@ -2,9 +2,9 @@
 
 A parser generator simplifies the development of programs such as calculators
 and compilers by writing the source code for parsing input text.  The generator
-takes a user defined grammar and develops tables that describe which functions
-to call when reading the input.  These tables along with the user provided 
-functions are compiled together to build the final program.
+takes a user defined grammar and builds tables that define which functions
+to call while reading the input.  These tables along with the user provided 
+functions are then compiled together to build the final program.
 
 A common way to define a context free grammar is the Backus-Naur Form.  The
 grammar is defined by two types of symbols: terminals and nonterminals.  The
@@ -60,14 +60,13 @@ parenthesis allows the grouping of an expression to control the order of
 operations when reading the pattern.
 
 ## Defining the Nonterminals
-A common way to represent a context free grammar is in Backus-Naur Form or BNF. 
-The grammar is defined by two types of symbols: terminals and nonterminals.  The 
-nonterminals are defined as a sequence of symbols known as a production rule. 
-These rules are written as a nonterminal followed by zero or more symbols. If 
-there is more than one possible rule associated the same nonterminal, they are 
-separated by a vertical bar. A semicolon indicates the end of the rules for a 
-given nonterminal. The following statement defines a multiplication product to 
-be either a number, or a previous product times a number.
+The nonterminals are defined as a sequence of symbols known as a production 
+rule.  These rules are written as a nonterminal followed by zero or more 
+symbols. If there is more than one possible rule associated the same 
+nonterminal, they are separated by a vertical bar. A semicolon indicates the end 
+of the rules for a given nonterminal. The following statement defines a 
+multiplication product to be either a number, or a previous product times a 
+number.
 
 ```
     mult: 'num' | mult '*' 'num';
