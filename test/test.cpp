@@ -3,9 +3,9 @@
 #include "regex.hpp"
 #include "lexer.hpp"
 
-#include "grammar.hpp"
-#include "display.hpp"
-#include "code.hpp"
+//#include "grammar.hpp"
+//#include "display.hpp"
+//#include "code.hpp"
 
 #include <sstream>
 #include <fstream>
@@ -147,56 +147,56 @@ int test_lexer()
     lexer.solve();
     lexer.reduce();
     
-    Display::print_lexer(lexer, std::cout);
+    //Display::print_lexer(lexer, std::cout);
     
     return 0;
 }
 
-int test_parser()
-{
-    std::ifstream in;
-    in.open("test.bnf");
-    if (!in) {
-        return 1;
-    }
-    
-    Grammar grammar;
-    if (!grammar.read_grammar(in)) {
-        return 1;
-    }
-    //grammar.print(std::cout);
-    
-    Lexer lexer;
-    
-    for (auto& term : grammar.terms) {
-        if (!term->regex.empty()) {
-            lexer.add_regex(term.get(), term->regex);
-        } else {
-            lexer.add_literal(term.get(), term->name);
-        }
-    }
-    
-    lexer.solve();
-    lexer.reduce();
-    
-    Display::print_lexer(lexer, std::cout);
-    //Code::write(grammar, lexer, std::cout);
-    
-//    Solver parser;
-//    parser.solve(grammar);
-//
-//    Display::print_parser(grammar, parser, std::cout);
-    //Code::write(grammar, parser,  std::cout);
-    
-    return 0;
-}
+//int test_parser()
+//{
+//    std::ifstream in;
+//    in.open("test.bnf");
+//    if (!in) {
+//        return 1;
+//    }
+//    
+//    Grammar grammar;
+//    if (!grammar.read_grammar(in)) {
+//        return 1;
+//    }
+//    //grammar.print(std::cout);
+//    
+//    Lexer lexer;
+//    
+//    for (auto& term : grammar.terms) {
+//        if (!term->regex.empty()) {
+//            lexer.add_regex(term.get(), term->regex);
+//        } else {
+//            lexer.add_literal(term.get(), term->name);
+//        }
+//    }
+//    
+//    lexer.solve();
+//    lexer.reduce();
+//    
+//    Display::print_lexer(lexer, std::cout);
+//    //Code::write(grammar, lexer, std::cout);
+//    
+////    Solver parser;
+////    parser.solve(grammar);
+////
+////    Display::print_parser(grammar, parser, std::cout);
+//    //Code::write(grammar, parser,  std::cout);
+//    
+//    return 0;
+//}
 
 int
 main(int argc, char* argv[])
 {
-    //test_finite();
-    //test_literal();
-    //test_regex();
-    //test_lexer();
-    test_parser();
+    test_finite();
+    test_literal();
+    test_regex();
+    test_lexer();
+    //test_parser();
 }
