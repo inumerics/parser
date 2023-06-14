@@ -183,7 +183,7 @@ Finite::Out::is_epsilon() {
 }
 
 bool
-Finite::Out::in_range(char c) {
+Finite::Out::in_range(int c) {
     if (epsilon) {
         return false;
     } else {

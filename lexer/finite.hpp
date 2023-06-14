@@ -74,7 +74,7 @@ public:
         
         Finite* next = nullptr;
         bool is_epsilon();
-        bool in_range(char c);
+        bool in_range(int c);
         
         bool epsilon;
         int first;

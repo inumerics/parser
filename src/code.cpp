@@ -316,13 +316,14 @@ Code::write_range(const Node::Range* range, std::ostream& out)
     int last  = range->last;
     
     if (first == last) {
-        if (isprint(first) && first != '\'' && first != '\\') {
+        if ((first <= 127) && isprint(first) && first != '\'' && first != '\\') {
             out << "c == '" << (char)first << "'";
         } else {
             out << "c == " << first << "";
         }
     } else {
-        if (isprint(first) && isprint(last)
+        if ((first <= 127) && (last <= 127)
+            && isprint(first) && isprint(last)
             && first != '\'' && last != '\''
             && first != '\\' && last != '\\') {
             out << "(c >= '" << (char)first << "')";
