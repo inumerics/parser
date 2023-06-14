@@ -10,6 +10,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 /**
  * Value is the base class of all arguments passed to the user defined functions

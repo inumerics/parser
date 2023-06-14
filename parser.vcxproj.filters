@@ -1,15 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="lexer">
       <UniqueIdentifier>{3336eef6-7c06-45ac-836e-bfd8e0c4e966}</UniqueIdentifier>
     </Filter>
-    <Filter Include="test">
-      <UniqueIdentifier>{c90a9bb1-7977-4f99-a25c-c6cb4cd02006}</UniqueIdentifier>
+    <Filter Include="parser">
+      <UniqueIdentifier>{a035a924-3f5c-4f37-b353-2e06177e37ab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -28,9 +24,28 @@
     <ClCompile Include="lexer\regex.cpp">
       <Filter>lexer</Filter>
     </ClCompile>
-    <ClCompile Include="test\test.cpp">
-      <Filter>test</Filter>
+    <ClCompile Include="src\code.cpp">
+      <Filter>parser</Filter>
     </ClCompile>
+    <ClCompile Include="src\display.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\grammar.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\options.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\solver.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\state.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\symbols.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lexer\finite.hpp">
@@ -48,11 +63,29 @@
     <ClInclude Include="lexer\regex.hpp">
       <Filter>lexer</Filter>
     </ClInclude>
+    <ClInclude Include="src\code.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\display.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\grammar.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\options.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\solver.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\state.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\symbols.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="test\test.bnf">
-      <Filter>test</Filter>
-    </None>
   </ItemGroup>
 </Project>

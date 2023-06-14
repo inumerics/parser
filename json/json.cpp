@@ -57,17 +57,17 @@ JsonString::JsonString(const std::string& value): value(value) {}
 /**
  * Scan actions to convert terminals into vales.
  */
-unique_ptr<JsonBool>
+unique_ptr<JsonValue>
 read_true(Table* table, const std::string& text) {
     return std::make_unique<JsonBool>(true);
 }
 
-unique_ptr<JsonBool>
+unique_ptr<JsonValue>
 read_false(Table* table, const std::string& text) {
     return std::make_unique<JsonBool>(false);
 }
 
-unique_ptr<JsonNull>
+unique_ptr<JsonValue>
 read_null(Table* table, const std::string& text) {
     return std::make_unique<JsonNull>();
 }
