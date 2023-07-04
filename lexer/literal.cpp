@@ -36,7 +36,7 @@ Literal::parse(const std::string& pattern, Term* accept)
             case 't': c = '\t'; break;
             case 'a': c = '\a'; break;
             case 'b': c = '\b'; break;
-            case 'e': c = '\e'; break;
+            case 'e': c =   27; break;
             case 'f': c = '\f'; break;
             case 'v': c = '\v'; break;
             case '\\': c = '\\'; break;
