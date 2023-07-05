@@ -25,8 +25,11 @@ main(int argc, char* argv[])
     if (opt.show_help) {
         opt.display_help();
         return 0;
+    } else if (opt.show_version) {
+        opt.display_license();
+        return 0;
     }
-    
+
     std::istream* in  = &std::cin;
     std::ostream* out = &std::cout;
     

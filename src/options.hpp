@@ -11,10 +11,12 @@ public:
     Options();
     bool parse(int argc, char *argv[]);
     void display_help();
-    
+    void display_license();
+
     std::string inpath;
     std::string outpath;
     bool show_help;
+    bool show_version = false;
     bool show_lexer;
     bool show_parser;
     
