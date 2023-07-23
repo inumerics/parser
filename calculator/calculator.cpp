@@ -9,28 +9,26 @@ using std::unique_ptr;
  * For terminals that specify an associated class, these functions takes the
  * matched string from the input and returns a value of that class.
  */
-unique_ptr<Value>
-scan_num(Table* table, const std::string& text)
-{
-    return std::make_unique<Value>(std::stoi(text));
+unique_ptr<Num>
+scan_num(Table* table, const std::string& text) {
+    return std::make_unique<Num>(std::stoi(text));
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 scan_hex(Table* table, const std::string& text)
 {
     std::stringstream stream;
     stream << std::hex << text;
+
     int num = 0;
     stream >> num;
-    return std::make_unique<Value>(num);
+    return std::make_unique<Num>(num);
 }
 
 unique_ptr<Ident>
-scan_ident(Table* table, const std::string& text)
-{
+scan_ident(Table* table, const std::string& text) {
     return std::make_unique<Ident>(text);
 }
-
 
 /**
  * Functions called when its associated rule is matched.  Every function is
@@ -38,78 +36,74 @@ scan_ident(Table* table, const std::string& text)
  * If any function is not implemented, including with the exact argument types,
  * then link errors will occur when building the final program.
  */
-unique_ptr<Value>
-reduce_total(Table* table, unique_ptr<Value>& E1) {
+unique_ptr<Num>
+reduce_total(Table* table, unique_ptr<Num>& E1) {
     return std::move(E1);
 }
 
-unique_ptr<Value>
-reduce_line(Table* table, unique_ptr<Value>& E1) {
+unique_ptr<Num>
+reduce_line(Table* table, unique_ptr<Num>& E1) {
     return std::move(E1);
 }
 
-unique_ptr<Value>
-reduce_assign(Table* table, unique_ptr<Ident>& E1, unique_ptr<Value>& E2) {
+unique_ptr<Num>
+reduce_assign(Table* table, 
+              unique_ptr<Ident>& E1, 
+              unique_ptr<Num>& E2) {
     table->vars[E1->name] = E2->value;
     return std::move(E2);
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 reduce_exit(Table* table) {
     table->done = true;
-    return std::make_unique<Value>(0);
+    return std::make_unique<Num>(0);
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 reduce_add_mul(Table* table,
-               unique_ptr<Value>& E1,
-               unique_ptr<Value>& E2)
-{
-    unique_ptr<Value> result = std::move(E1);
+               unique_ptr<Num>& E1,
+               unique_ptr<Num>& E2) {
+    unique_ptr<Num> result = std::move(E1);
     result->value += E2->value;
     return result;
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 reduce_sub_mul(Table* table,
-               unique_ptr<Value>& E1,
-               unique_ptr<Value>& E2)
-{
-    unique_ptr<Value> result = std::move(E1);
+               unique_ptr<Num>& E1,
+               unique_ptr<Num>& E2) {
+    unique_ptr<Num> result = std::move(E1);
     result->value -= E2->value;
     return result;
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 reduce_mul_int(Table* table,
-               unique_ptr<Value>& E1,
-               unique_ptr<Value>& E2)
-{
-    unique_ptr<Value> result = std::move(E1);
+               unique_ptr<Num>& E1,
+               unique_ptr<Num>& E2) {
+    unique_ptr<Num> result = std::move(E1);
     result->value *= E2->value;
     return result;
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 reduce_div_int(Table* table,
-               unique_ptr<Value>& E1,
-               unique_ptr<Value>& E2)
-{
-    unique_ptr<Value> result = std::move(E1);
+               unique_ptr<Num>& E1,
+               unique_ptr<Num>& E2) {
+    unique_ptr<Num> result = std::move(E1);
     result->value /= E2->value;
     return result;
 }
 
-unique_ptr<Value>
-reduce_paren(Table* table,
-             unique_ptr<Value>& E1)
-{
+unique_ptr<Num>
+reduce_paren(Table* table, unique_ptr<Num>& E1) {
     return std::move(E1);
 }
 
-unique_ptr<Value>
+unique_ptr<Num>
 reduce_lookup(Table* table, unique_ptr<Ident>& E1) {
-    return std::make_unique<Value>(table->vars[E1->name]);
+    return std::make_unique<Num>(table->vars[E1->name]);
 }
 
 /**
@@ -289,38 +283,31 @@ Calculator::pop(size_t count)
  */
 int
 main(int argc, const char * argv[])
-{
-    //if (argc != 2) {
-    //    std::cerr << "Expected a single input string.\n";
-    //    return 1;
-    //}
-    
+{    
+    Table table;
+
     Calculator calculator;
     calculator.start();
-
-    Table table;
-    
-    //std::stringstream in(argv[1]);
-    
-    std::unique_ptr<Value> result;
-    
     std::cout << "> ";
 
     while (!table.done) 
     {
         int c = std::cin.get();
         if (c == '\n') {
-            result = calculator.scan_end(&table);
+            std::unique_ptr<Value> result = calculator.scan_end(&table);
             if (!result) {
                 std::cerr << "Unexpected end of the input.\n";
                 return 1;
             }
             if (!table.done) {
-                std::cout << result->value << "\n";
+                std::unique_ptr<Num> num(dynamic_cast<Num*>(result.release()));
+
+                std::cout << num->value << "\n";
                 calculator.start();
                 std::cout << "> ";
             }
-        } else {
+        } 
+        else {
             bool ok = calculator.scan(&table, c);
             if (!ok) {
                 std::cerr << "Unexpected character '" << c <<  "'.\n";
