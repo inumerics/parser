@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <map>
 
 /**
  * Value is the base class of all arguments passed to the user defined functions
@@ -21,12 +22,22 @@
 
 class Value {
   public:
+    Value() : value(0) {}
     Value(int value) : value(value) {}
     virtual ~Value() = default;
     int value;
 };
 
+class Ident : public Value {
+  public:
+    Ident(const std::string& name) : name(name) {}
+    std::string name;
+};
+
 class Table {
+  public:    
+    std::map<std::string, int> vars;
+    bool done = false;
 };
 
 /**

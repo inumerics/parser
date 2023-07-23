@@ -213,13 +213,13 @@ Display::print_gotos(const Grammar& grammar,
         
         Symbol* sym = nonterm.get();
         for (auto& state : parser.states)
-        {
+        {            
             out << std::setw(4) << std::right;
             auto found = state->gotos.find(sym);
             if (found != state->gotos.end()) {
                 out << found->second->id;
             } else {
-                out << "";
+                out << "    ";
             }
         }
         out << "\n";
@@ -227,3 +227,34 @@ Display::print_gotos(const Grammar& grammar,
     out << "\n";
 }
 
+/******************************************************************************/
+void 
+Display::print_states(const Grammar& grammar,
+                      const Solver& solver,
+                      std::ostream& out) 
+{
+    for (auto& state : solver.states) {
+        print_state(*state, out);
+    }
+}
+
+void 
+Display::print_state(const State& state, std::ostream& out)
+{
+    out << "State\n";
+    for (auto& item : state.items) {
+        int i = 0;
+        for (auto sym : item.rule->product) {
+            if (item.mark == i) {
+                out << " . ";
+            }
+            sym->print(out);
+            out << " ";
+            i++;
+        }
+        out << " :  ";
+        item.ahead->print(out);
+        out << "\n";
+    }
+    out << "\n";
+}

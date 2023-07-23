@@ -23,6 +23,10 @@ public:
     static void print_parser(const Grammar& grammar,
                              const Solver& solver,
                              std::ostream& out);
+
+    static void print_states(const Grammar& grammar,
+                             const Solver& solver,
+                             std::ostream& out);
     
 private:
     static void print_node(const Node* node,
@@ -35,6 +39,9 @@ private:
     
     static void print_gotos(const Grammar& grammar,
                             const Solver& solver,
+                            std::ostream& out);
+
+    static void print_state(const State& state, 
                             std::ostream& out);
 };
 

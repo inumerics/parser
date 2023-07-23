@@ -19,7 +19,8 @@ Options::display_help()
     "  -o   specify output filename\n"
     "\n"
     "  -l   display only the lexer states\n"
-    "  -p   display only the parse table\n"
+    "  -p   display only the parser table\n"
+    "  -s   display only the parser states\n"
     "\n"
     "  -v   display version and license\n"
     "\n"
@@ -90,6 +91,10 @@ Options::parse_option(char c, int argc, char *argv[], int* idx)
     }
     case 'p': {
         show_parser = true;
+        return true;
+    }
+    case 's': {
+        show_states = true;
         return true;
     }
     }

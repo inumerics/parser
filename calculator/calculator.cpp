@@ -25,6 +25,13 @@ scan_hex(Table* table, const std::string& text)
     return std::make_unique<Value>(num);
 }
 
+unique_ptr<Ident>
+scan_ident(Table* table, const std::string& text)
+{
+    return std::make_unique<Ident>(text);
+}
+
+
 /**
  * Functions called when its associated rule is matched.  Every function is
  * passed arguments for each terminal in the rule that has an associated type.
@@ -32,12 +39,25 @@ scan_hex(Table* table, const std::string& text)
  * then link errors will occur when building the final program.
  */
 unique_ptr<Value>
-reduce_total(Table* table,
-             unique_ptr<Value>& E1)
-{
-    unique_ptr<Value> result = std::move(E1);
-    std::cout << result->value << "\n";
-    return result;
+reduce_total(Table* table, unique_ptr<Value>& E1) {
+    return std::move(E1);
+}
+
+unique_ptr<Value>
+reduce_line(Table* table, unique_ptr<Value>& E1) {
+    return std::move(E1);
+}
+
+unique_ptr<Value>
+reduce_assign(Table* table, unique_ptr<Ident>& E1, unique_ptr<Value>& E2) {
+    table->vars[E1->name] = E2->value;
+    return std::move(E2);
+}
+
+unique_ptr<Value>
+reduce_exit(Table* table) {
+    table->done = true;
+    return std::make_unique<Value>(0);
 }
 
 unique_ptr<Value>
@@ -85,6 +105,11 @@ reduce_paren(Table* table,
              unique_ptr<Value>& E1)
 {
     return std::move(E1);
+}
+
+unique_ptr<Value>
+reduce_lookup(Table* table, unique_ptr<Ident>& E1) {
+    return std::make_unique<Value>(table->vars[E1->name]);
 }
 
 /**
@@ -265,33 +290,40 @@ Calculator::pop(size_t count)
 int
 main(int argc, const char * argv[])
 {
-    if (argc != 2) {
-        std::cerr << "Expected a single input string.\n";
-        return 1;
-    }
+    //if (argc != 2) {
+    //    std::cerr << "Expected a single input string.\n";
+    //    return 1;
+    //}
     
     Calculator calculator;
     calculator.start();
-    
+
     Table table;
     
-    std::stringstream in(argv[1]);
+    //std::stringstream in(argv[1]);
     
     std::unique_ptr<Value> result;
     
-    while (true) {
-        int c = in.get();
-        if (c == EOF) {
+    std::cout << "> ";
+
+    while (!table.done) 
+    {
+        int c = std::cin.get();
+        if (c == '\n') {
             result = calculator.scan_end(&table);
             if (!result) {
                 std::cerr << "Unexpected end of the input.\n";
                 return 1;
             }
-            break;
+            if (!table.done) {
+                std::cout << result->value << "\n";
+                calculator.start();
+                std::cout << "> ";
+            }
         } else {
             bool ok = calculator.scan(&table, c);
             if (!ok) {
-                std::cerr << "Unexpected character.\n";
+                std::cerr << "Unexpected character '" << c <<  "'.\n";
                 return 1;
             }
         }

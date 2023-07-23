@@ -28,12 +28,19 @@
 #include "calculator.hpp"
 
 /* Integer Values */
-'num'<Value>  [0-9]+                 &scan_num;
-'hex'<Value>  0x([0-9]|[A-F]|[a-f])+ &scan_hex;
-'hex'<Value>  0h([0-9]|[A-F]|[a-f])+ &scan_hex;
+'num'<Value>    [0-9]+                 &scan_num;
+'hex'<Value>    0x([0-9]|[A-F]|[a-f])+ &scan_hex;
+
+'exit'; /* declare exit first, so its not an identifier */
+
+'ident'<Ident>  ([A-Z]|[a-z])+         &scan_ident;
 
 /* Grammar Rules */
-total<Value>: add        &reduce_total
+total<Value>: line      &reduce_total
+    ;
+line<Value> : add       &reduce_line
+    | 'ident' '=' add   &reduce_assign
+    | 'exit'            &reduce_exit
     ;
 add<Value>: mul
     | add '+' mul       &reduce_add_mul
@@ -46,5 +53,5 @@ mul<Value>: int
     ;
 int<Value>: 'num'
     | 'hex'
-    ;
-
+    | 'ident'           &reduce_lookup
+    ;  

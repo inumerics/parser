@@ -19,6 +19,7 @@ public:
     bool show_version = false;
     bool show_lexer;
     bool show_parser;
+    bool show_states = false;
     
 private:
     bool parse_option(char c, int argc, char *argv[], int* idx);

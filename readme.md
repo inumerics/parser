@@ -41,7 +41,7 @@ number terminal whos string consists of one or more digits.
 The regular expression syntax provides operators for matching patterns, such as 
 repeated letters or numbers. The + operator indicates that the match contains 
 one or more of the previous character and the \* operator matches zero or more.
-Finally, the ? marks that the previous character is optional.
+Finally, the ? marks that the previous character is optional. 
 
 As shown with the previous definition of a number, the syntax also allows 
 matching a range of characters by using brackets and a dash between the first 

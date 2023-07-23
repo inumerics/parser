@@ -88,6 +88,8 @@ main(int argc, char* argv[])
         Display::print_lexer(lexer, *out);
     } else if (opt.show_parser) {
         Display::print_parser(grammar, parser, std::cout);
+    } else if (opt.show_states) {
+        Display::print_states(grammar, parser, std::cout);
     } else {
         Code::write(grammar, lexer, *out);
         ok = Code::write(grammar, parser, *out);

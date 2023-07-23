@@ -305,7 +305,7 @@ State::Actions::combine_reduce()
             }
         }
     }
-    if (max_count > 0) {
+    if (max_count > 0) { 
         std::map<const Symbol*, Nonterm::Rule*> update;
         for (auto r : reduce) {
             if (r.second != max_rule) {

@@ -269,7 +269,11 @@ Grammar::read_rule(istream& in, vector<Symbol*>* syms)
             return true;
         }
         else {
-            std::cerr << "Unexpected '" << c << "' in rule.\n";
+            if (isprint(c)) {
+                std::cerr << "Unexpected '" << (char)c << "' in rule.\n";
+            } else {
+                std::cerr << "Unexpected '" << c << "' in rule.\n";
+            }
             return false;
         }
     }
