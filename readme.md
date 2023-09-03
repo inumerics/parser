@@ -87,17 +87,6 @@ input, this parser program generates the tables of actions.  These action tables
 are then compiled along with the user defined functions to build a calculator
 program.
 
-- [Calculator Grammar](https://github.com/inumerics/parser/blob/main/calculator/calculator.bnf)
-- [Calculator Header ](https://github.com/inumerics/parser/blob/main/calculator/calculator.hpp)
-- [Calculator Source ](https://github.com/inumerics/parser/blob/main/calculator/calculator.cpp)
-
-## Example JSON Reader
-
-Example program with a grammar and functions that implement a JSON reader.  With 
-the JSON language as an input, this parser program generates the tables of 
-actions for a given input.  These action tables are then compiled along with the 
-user defined functions to parse JSON into C++ objects.
-
-- [JSON Grammar](https://github.com/inumerics/parser/blob/main/json/json.bnf)
-- [JSON Header ](https://github.com/inumerics/parser/blob/main/json/json.hpp)
-- [JSON Source ](https://github.com/inumerics/parser/blob/main/json/json.cpp)
+- [Calculator Grammar](https://github.com/inumerics/calculator/blob/main/source/calculator.bnf)
+- [Calculator Header ](https://github.com/inumerics/calculator/blob/main/source/calculator.hpp)
+- [Calculator Source ](https://github.com/inumerics/calculator/blob/main/source/calculator.cpp)

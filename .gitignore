@@ -1,6 +1,3 @@
 xcuserdata/
-.vs/
-*.vcxproj.user
-Debug/
-Release/
- 
+bin/
+.DS_STORE
