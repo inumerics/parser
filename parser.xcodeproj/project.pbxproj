@@ -112,8 +112,10 @@
 			children = (
 				96EF81C729A17623001CC416 /* readme.md */,
 				96EF81C629A17601001CC416 /* license.md */,
-				9676CA0129A16F14009397B1 /* main.cpp */,
 				96B1613429A1B08800B90F93 /* Makefile */,
+				96EF81FA29A19AEA001CC416 /* options.hpp */,
+				96EF81F929A19AEA001CC416 /* options.cpp */,
+				9676CA0129A16F14009397B1 /* main.cpp */,
 				9676CA0029A16F14009397B1 /* lexer */,
 				96EF81D029A17E04001CC416 /* parser */,
 				96EF81B729A173A6001CC416 /* tests */,
@@ -170,8 +172,6 @@
 				96EF81E129A1808B001CC416 /* display.cpp */,
 				96EF81E629A18184001CC416 /* code.hpp */,
 				96EF81E529A18184001CC416 /* code.cpp */,
-				96EF81FA29A19AEA001CC416 /* options.hpp */,
-				96EF81F929A19AEA001CC416 /* options.cpp */,
 			);
 			path = parser;
 			sourceTree = "<group>";

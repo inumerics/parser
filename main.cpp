@@ -1,5 +1,7 @@
-/*******************************************************************************
- * Solves for the parse table of a grammar.
+/**
+ * Reads the user defined grammar from the standard input or file and then
+ * solves for all of the parse states.  After solving for all possible states,
+ * the program writes the source code for the table.
  */
 
 #include "grammar.hpp"
@@ -11,11 +13,6 @@
 #include <fstream>
 #include <cstring>
 
-/*******************************************************************************
- * Reads the user defined grammar from the standard input or file and then
- * solves for all of the parse states.  After solving for all possible states,
- * the program writes the source code for the table.
- */
 int
 main(int argc, char* argv[])
 {

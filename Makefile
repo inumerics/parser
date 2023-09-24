@@ -4,13 +4,13 @@ CXXFLAGS  = -std=c++14 -Wall
 LEXER   = lexer/
 PARSER  = parser/
 BUILD   = build/
-TEST    = test/
+TESTS   = tests/
 BIN	    = bin/
 
 HEADERS  = $(LEXER)finite.hpp $(LEXER)literal.hpp $(LEXER)regex.hpp $(LEXER)node.hpp \
 			$(LEXER)lexer.hpp $(PARSER)symbols.hpp $(PARSER)grammar.hpp \
 			$(PARSER)state.hpp $(PARSER)solver.hpp \
-			$(PARSER)display.hpp $(PARSER)code.hpp $(PARSER)options.hpp
+			$(PARSER)display.hpp $(PARSER)code.hpp
 
 OBJECTS  = $(BUILD)finite.o $(BUILD)literal.o $(BUILD)regex.o $(BUILD)node.o \
 			$(BUILD)lexer.o $(BUILD)symbols.o $(BUILD)grammar.o \
@@ -22,6 +22,9 @@ all: $(BIN)parser
 
 $(BIN)parser: $(OBJECTS) $(HEADERS) $(BUILD)main.o | $(BIN)
 	$(CC) $(CXXFLAGS) -o $@ $(OBJECTS) $(BUILD)main.o
+	
+$(BUILD)options.o: options.cpp $(HEADERS) | $(BUILD)
+	$(CC) $(CXXFLAGS) -I $(LEXER) -I $(PARSER) -c -o $@ $<
 
 $(BUILD)main.o: main.cpp $(HEADERS) | $(BUILD)
 	$(CC) $(CXXFLAGS) -I $(LEXER) -I $(PARSER) -c -o $@ $<

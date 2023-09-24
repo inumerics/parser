@@ -4,7 +4,6 @@
 #include <fstream>
 #include <cstring>
 
-/******************************************************************************/
 void
 Options::display_help()
 {
@@ -27,8 +26,9 @@ Options::display_help()
 void 
 Options::display_license()
 {
-    std::cout <<
-        "IslandParser version 0.8.0\n"
+    std::cout <<         
+        "\n"
+        "IslandParser version 0.9.0\n"
         "\n"
         "The software is provided \"as is\", without warranty of any kind, express or\n"
         "implied, including but not limited to the warranties of merchantability, \n"
@@ -38,7 +38,7 @@ Options::display_license()
         "out of or in connection with the software or the use or other dealings in the\n"
         "software.\n"
         "\n"
-        "Copyright(c) 2023 Island Numerics\n";
+        "Copyright(c) 2023 Island Numerics\n\n";
 }
 
 bool
