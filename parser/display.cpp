@@ -243,7 +243,7 @@ Display::print_state(const State& state, std::ostream& out)
 {
     out << "State\n";
     for (auto& item : state.items) {
-        int i = 0;
+        size_t i = 0;
         for (auto sym : item.rule->product) {
             if (item.mark == i) {
                 out << " . ";
