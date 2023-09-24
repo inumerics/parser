@@ -5,12 +5,6 @@
 #include <cstring>
 
 /******************************************************************************/
-Options::Options():
-    show_help(false),
-    show_lexer(false),
-    show_parser(false){}
-
-/******************************************************************************/
 void
 Options::display_help()
 {

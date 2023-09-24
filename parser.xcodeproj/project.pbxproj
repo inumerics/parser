@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9676CA0229A16F14009397B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9676CA0129A16F14009397B1 /* main.cpp */; };
 		96EF81B029A1733A001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
-		96EF81B929A173A6001CC416 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81B829A173A6001CC416 /* test.cpp */; };
 		96EF81BD29A17403001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
 		96EF81C029A1747E001CC416 /* literal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81BE29A1747E001CC416 /* literal.cpp */; };
 		96EF81C129A1747E001CC416 /* literal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81BE29A1747E001CC416 /* literal.cpp */; };
@@ -63,7 +62,6 @@
 		96EF81AE29A1733A001CC416 /* finite.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = finite.cpp; sourceTree = "<group>"; };
 		96EF81AF29A1733A001CC416 /* finite.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = finite.hpp; sourceTree = "<group>"; };
 		96EF81B629A173A6001CC416 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
-		96EF81B829A173A6001CC416 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		96EF81BE29A1747E001CC416 /* literal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = literal.cpp; sourceTree = "<group>"; };
 		96EF81BF29A1747E001CC416 /* literal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = literal.hpp; sourceTree = "<group>"; };
 		96EF81C229A174C8001CC416 /* regex.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = regex.cpp; sourceTree = "<group>"; };
@@ -118,7 +116,7 @@
 				96B1613429A1B08800B90F93 /* Makefile */,
 				9676CA0029A16F14009397B1 /* lexer */,
 				96EF81D029A17E04001CC416 /* parser */,
-				96EF81B729A173A6001CC416 /* test */,
+				96EF81B729A173A6001CC416 /* tests */,
 				9676C9FF29A16F14009397B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,13 +147,12 @@
 			path = lexer;
 			sourceTree = "<group>";
 		};
-		96EF81B729A173A6001CC416 /* test */ = {
+		96EF81B729A173A6001CC416 /* tests */ = {
 			isa = PBXGroup;
 			children = (
 				96EF81E829A18200001CC416 /* test.bnf */,
-				96EF81B829A173A6001CC416 /* test.cpp */,
 			);
-			path = test;
+			path = tests;
 			sourceTree = "<group>";
 		};
 		96EF81D029A17E04001CC416 /* parser */ = {
@@ -287,7 +284,6 @@
 				96EF81C529A174C8001CC416 /* regex.cpp in Sources */,
 				96EF81C129A1747E001CC416 /* literal.cpp in Sources */,
 				96EF81D429A17E4E001CC416 /* symbols.cpp in Sources */,
-				96EF81B929A173A6001CC416 /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
