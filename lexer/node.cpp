@@ -114,7 +114,9 @@ Node::Range::operator<(const Range& other) const {
     return last < other.first;
 }
 
-/******************************************************************************/
+/**
+ * TODO Document the design of the group divide.
+ */
 std::vector<std::unique_ptr<Group>>
 Group::divide(const std::map<Node*, Group*>& lookup)
 {

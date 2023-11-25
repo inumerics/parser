@@ -24,7 +24,7 @@
  */
 class Grammar
 {
-public:
+  public:
     std::vector<std::unique_ptr<Nonterm>> nonterms;
     std::vector<std::unique_ptr<Term>> terms;
     Endmark endmark;
@@ -41,7 +41,7 @@ public:
     
     void print(std::ostream& out) const;
     
-private:
+  private:
     /** Lookups for already defined sysmbols */
     std::map<std::string, Nonterm*> nonterm_names;
     std::map<std::string, Term*> term_names;

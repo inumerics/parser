@@ -7,8 +7,8 @@
  * multiple terminals and the one with the lowest rank is accepted.
  */
 Term::Term(const std::string& name, size_t rank):
-name    (name),
-rank    (rank){}
+  name(name),
+  rank(rank){}
 
 void
 Term::print(std::ostream& out) const {
@@ -27,10 +27,10 @@ Term::write(std::ostream& out) const {
  * or more states is in a set of active states.
  */
 Finite::Finite():
-term(nullptr){}
+  term(nullptr){}
 
 Finite::Finite(Term* accept):
-term(accept){}
+  term(accept){}
 
 /**
  * Reads from an input stream, following the outputs base on each character,
@@ -166,16 +166,16 @@ Finite::lower_rank(const Finite* left, const Finite* right)
 }
 
 Finite::Out::Out(int first, int last, Finite* next):
-next    (next),
-epsilon (false),
-first   (first),
-last    (last){}
+    next    (next),
+    epsilon (false),
+    first   (first),
+    last    (last){}
 
 Finite::Out::Out(Finite* next):
-next    (next),
-epsilon (true),
-first   ('\0'),
-last    ('\0'){}
+    next    (next),
+    epsilon (true),
+    first   ('\0'),
+    last    ('\0'){}
 
 bool
 Finite::Out::is_epsilon() {

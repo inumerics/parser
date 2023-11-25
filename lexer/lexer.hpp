@@ -22,7 +22,7 @@
  */
 class Lexer
 {
-public:
+  public:
     
     /** Adding expressions, return true if the provided expression is valid. */
     bool add_regex(Term* accept, const std::string& regex);
@@ -34,10 +34,10 @@ public:
     /** After building the DFA, call reduce to minimize the nodes. */
     void reduce();
     
-public:
+  public:
     std::vector<std::unique_ptr<Node>> nodes;
     
-private:
+  private:
     std::vector<std::unique_ptr<Regex>> exprs;
     std::vector<std::unique_ptr<Literal>> literals;
 };

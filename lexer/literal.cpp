@@ -13,7 +13,7 @@ Literal::parse(const std::string& pattern, Term* accept)
     
     /** Build a single state to start */
     states.clear();
-    states.emplace_back(std::make_unique<Finite>());
+    states.push_back(std::make_unique<Finite>());
     start = states.back().get();
     
     Finite* state = start;
@@ -51,7 +51,7 @@ Literal::parse(const std::string& pattern, Term* accept)
         }
         
         /** Each state has only a single output with its character. */
-        states.emplace_back(std::make_unique<Finite>());
+        states.push_back(std::make_unique<Finite>());
         Finite* next = states.back().get();
         state->add_out(c, next);
         state = next;

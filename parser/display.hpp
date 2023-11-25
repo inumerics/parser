@@ -1,9 +1,6 @@
-/*******************************************************************************
+/**
  * Displays the state machine nodes of the lexer and the actions of the shift
- * reduce parser.  The lexer matches patterns using a state machine of nodes,
- * where the nodes have next states corresponding to input characters.  The
- * actions determine if the parser should shift the next terminal onto its stack
- * or reduce the stack by a grammar rule.
+ * reduce parser.
  */
 
 #ifndef display_hpp
@@ -13,10 +10,15 @@
 #include "solver.hpp"
 #include <iostream>
 
-/******************************************************************************/
+/**
+ * The lexer matches patterns using a state machine of nodes, where the nodes
+ * have next states corresponding to input characters.  The actions determine
+ * if the parser should shift the next terminal onto its stack or reduce the
+ * stack by a grammar rule.
+ */
 class Display
 {
-public:
+  public:
     static void print_lexer(const Lexer& lexer,
                             std::ostream& out);
     
@@ -28,7 +30,7 @@ public:
                              const Solver& solver,
                              std::ostream& out);
     
-private:
+  private:
     static void print_node(const Node* node,
                            std::map<const Node*, int>& ids,
                            std::ostream& out);

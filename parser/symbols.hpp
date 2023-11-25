@@ -89,7 +89,7 @@ class Nonterm : public Symbol
     static void solve_firsts(const std::vector<Symbol*>& symbols,
                              std::set<Symbol*>* firsts);
     
-private:
+  private:
     /** Called by solve for finding the set of firsts and follows. */
     void insert_firsts(Rule* rule,
                        bool* found);
@@ -105,7 +105,7 @@ private:
 
 /** Indicates the end of an input string. */
 class Endmark : public Symbol {
-public:
+  public:
     virtual void print(std::ostream& out) const;
     virtual void write(std::ostream& out) const;
 };

@@ -14,15 +14,14 @@
  */
 class Regex
 {
-public:
-    
+  public:
     /** Builds the NFA to match the pattern. */
     bool parse(const std::string& in, Term* accept);
     
     /** After parsing, call scan of the start state to look for a match. */
     Finite* start = nullptr;
     
-private:
+  private:
     std::vector<std::unique_ptr<Finite>> states;
     Finite* add_state();
     Finite* add_state(Term* accept);

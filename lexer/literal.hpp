@@ -15,14 +15,14 @@
  */
 class Literal
 {
-public:
+  public:
     /** Builds the NFA to match the sequence. */
     bool parse(const std::string& in, Term* accept);
     
     /** After parsing, call scan of the start state to look for a match. */
     Finite* start = nullptr;
     
-private:
+  private:
     std::vector<std::unique_ptr<Finite>> states;
 };
 

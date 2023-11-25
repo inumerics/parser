@@ -19,7 +19,7 @@
  * input.
  */
 class Item {
-public:
+  public:
     Item(Nonterm::Rule* rule, size_t mark, Symbol* ahead);
     
     Nonterm::Rule* rule;

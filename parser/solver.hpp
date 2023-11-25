@@ -15,7 +15,7 @@
  */
 class Solver
 {
-public:
+  public:
     /** After reading the grammar, solve for parse states. */
     bool solve(Grammar& grammar);
     

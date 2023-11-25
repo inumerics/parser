@@ -19,7 +19,7 @@
  */
 class Symbol
 {
-public:
+  public:
     virtual ~Symbol() = default;
     std::string type;
     
@@ -32,7 +32,7 @@ public:
  * multiple terminals and the one with the lowest rank is accepted.
  */
 class Term : public Symbol {
-public:
+  public:
     Term(const std::string& name, size_t rank);
     
     std::string name;       /// common name shown in grammar rules
@@ -52,7 +52,7 @@ public:
  */
 class Finite
 {
-public:
+  public:
     Finite();
     Finite(Term* term);
     
@@ -68,7 +68,7 @@ public:
      * Empty, or epsilon, outputs provide optional patterns.
      */
     class Out {
-    public:
+      public:
         Out(int first, int last, Finite* next);
         Out(Finite* next);
         
@@ -97,7 +97,7 @@ public:
     /** Determines the accepted match in cases with multiple final states. */
     static bool lower_rank(const Finite* left, const Finite* right);
     
-private:
+  private:
     
     /** Next active states for a given input character. */
     std::vector<std::unique_ptr<Out>> outs;

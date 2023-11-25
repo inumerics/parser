@@ -1,10 +1,10 @@
 #include "symbols.hpp"
 
 Nonterm::Nonterm(const std::string& name):
-name    (name),
-id      (0),
-firsts  (),
-empty_first(false){}
+    name    (name),
+    id      (0),
+    firsts  (),
+    empty_first(false){}
 
 void Nonterm::print(std::ostream& out) const { out << name; }
 void Nonterm::write(std::ostream& out) const { out << "nonterm" << id; }
@@ -196,16 +196,16 @@ Nonterm::print_follows(std::ostream& out) const
 }
 
 Nonterm::Rule::Rule(Nonterm* nonterm):
-nonterm (nonterm),
-product (),
-action  (),
-id      (0){}
+    nonterm (nonterm),
+    product (),
+    action  (),
+    id      (0){}
 
 Nonterm::Rule::Rule(Nonterm* nonterm, const std::string& action):
-nonterm (nonterm),
-product (),
-action  (action),
-id      (0){}
+    nonterm (nonterm),
+    product (),
+    action  (action),
+    id      (0){}
 
 void
 Nonterm::Rule::print(std::ostream& out) const

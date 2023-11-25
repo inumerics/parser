@@ -141,6 +141,7 @@ initial_partition(const std::vector<std::unique_ptr<Node>>& nodes)
     return result;
 }
 
+/// TODO Document the reduce step.
 void
 Lexer::reduce()
 {
