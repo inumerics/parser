@@ -15,7 +15,6 @@ main(int argc, const char * argv[])
 
     Calculator calculator;
     calculator.start();
-    std::cout << "> ";
     
     std::ifstream in;
     in.open("test.xml");
@@ -24,7 +23,6 @@ main(int argc, const char * argv[])
     while (!done)
     {
         int c = in.get();
-        std::cout << (char)c;
         if (c == EOF) {
             std::unique_ptr<Value> result = calculator.scan_end(&table);
             if (!result) {
@@ -32,10 +30,11 @@ main(int argc, const char * argv[])
                 return 1;
             }
             std::unique_ptr<Document> num(dynamic_cast<Document*>(result.release()));
-            std::cout << "Done";
+            std::cout << "Done\n";
             done = true;
         }
         else {
+            std::cout << (char)c;
             bool ok = calculator.scan(&table, c);
             if (!ok) {
                 std::cerr << "Unexpected character '" << c <<  "'.\n";

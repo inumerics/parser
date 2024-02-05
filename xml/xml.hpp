@@ -45,6 +45,17 @@ class Tag : public Value
     std::string name;
 };
 
+class Content : public Value
+{
+  public:
+};
+
+class Contents : public Value
+{
+  public:
+    std::vector<Content> contents;
+};
+
 class Element : public Value
 {
   public:

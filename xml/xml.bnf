@@ -38,7 +38,16 @@ elements<Elements>: element     &reduce_elements
     | elements element          &append_elements
     ;
     
-element<Element>: stag etag     &reduce_element
+element<Element>: stag contents etag  &reduce_element
+    | stag etag        &reduce_empty
+    ;
+    
+contents<Contents>: content   &reduce_contents
+    | contents content        &append_contents
+    ;
+content<Content>: 'name'  &content_name
+    | element             &content_element
+    | element 'name'      &content_element_name
     ;
     
 stag<Tag>: '<' 'name' '>'       &reduce_stag

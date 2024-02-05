@@ -40,9 +40,55 @@ append_elements(Table* table,
 }
 
 unique_ptr<Element>
-reduce_element(Table* table, unique_ptr<Tag>& E1, unique_ptr<Tag>& E2) {
+reduce_element(Table* table,
+               unique_ptr<Tag>& E1,
+               unique_ptr<Contents>& E2,
+               unique_ptr<Tag>& E3) {
     auto elememt = std::make_unique<Element>();
     return elememt;
+}
+
+unique_ptr<Element>
+reduce_empty(Table* table,
+               unique_ptr<Tag>& E1,
+               unique_ptr<Tag>& E2) {
+    auto elememt = std::make_unique<Element>();
+    return elememt;
+}
+
+
+unique_ptr<Contents>
+reduce_contents(Table* table, unique_ptr<Content>& E1) {
+    auto content = std::make_unique<Contents>();
+    return content;
+}
+
+unique_ptr<Contents>
+append_contents(Table* table,
+                unique_ptr<Contents>& E1,
+                unique_ptr<Content>& E2) {
+    auto content = std::make_unique<Contents>();
+    return content;
+}
+
+unique_ptr<Content>
+content_name(Table* table, unique_ptr<Name>& E1) {
+    auto content = std::make_unique<Content>();
+    return content;
+}
+
+unique_ptr<Content>
+content_element(Table* table, unique_ptr<Element>& E1) {
+    auto content = std::make_unique<Content>();
+    return content;
+}
+
+unique_ptr<Content>
+content_element_name(Table* table,
+                     unique_ptr<Element>& E1,
+                     unique_ptr<Name>& E2) {
+    auto content = std::make_unique<Content>();
+    return content;
 }
 
 unique_ptr<Tag>
@@ -56,9 +102,6 @@ reduce_etag(Table* table, unique_ptr<Name>& E1) {
     auto tag = std::make_unique<Tag>();
     return tag;
 }
-
-
-
 
 /**
  * Functions provided by the lexer for identifing terminals given the input
