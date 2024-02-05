@@ -23,15 +23,9 @@ class Value {
     virtual ~Value() = default;
 };
 
-class Num : public Value {
+class Name : public Value {
   public:
-    Num(int value) : value(value) {}
-    int value;
-};
-
-class Ident : public Value {
-  public:
-    Ident(const std::string& name) : name(name) {}
+    Name(const std::string& name) : name(name) {}
     std::string name;
 };
 
@@ -43,6 +37,30 @@ class Table {
   public:
     std::map<std::string, int> vars;
     bool done = false;
+};
+
+class Tag : public Value
+{
+  public:
+    std::string name;
+};
+
+class Element : public Value
+{
+  public:
+    std::string name;
+};
+
+class Elements : public Value
+{
+  public:
+    std::vector<Element> items;
+};
+
+class Document : public Value
+{
+  public:
+    std::vector<Element> elements;
 };
 
 /**

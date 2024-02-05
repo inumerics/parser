@@ -9,25 +9,9 @@ using std::unique_ptr;
  * For terminals that specify an associated class, these functions takes the
  * matched string from the input and returns a value of that class.
  */
-unique_ptr<Num>
-scan_num(Table* table, const std::string& text) {
-    return std::make_unique<Num>(std::stoi(text));
-}
-
-unique_ptr<Num>
-scan_hex(Table* table, const std::string& text)
-{
-    std::stringstream stream;
-    stream << std::hex << text;
-
-    int num = 0;
-    stream >> num;
-    return std::make_unique<Num>(num);
-}
-
-unique_ptr<Ident>
-scan_ident(Table* table, const std::string& text) {
-    return std::make_unique<Ident>(text);
+unique_ptr<Name>
+scan_name(Table* table, const std::string& text) {
+    return std::make_unique<Name>(text);
 }
 
 /**
@@ -36,75 +20,45 @@ scan_ident(Table* table, const std::string& text) {
  * If any function is not implemented, including with the exact argument types,
  * then link errors will occur when building the final program.
  */
-unique_ptr<Num>
-reduce_total(Table* table, unique_ptr<Num>& E1) {
+unique_ptr<Document>
+reduce_document(Table* table, unique_ptr<Elements>& E1) {
+    auto doc = std::make_unique<Document>();
+    return doc;
+}
+
+unique_ptr<Elements>
+reduce_elements(Table* table, unique_ptr<Element>& E1) {
+    auto elememts = std::make_unique<Elements>();
+    return elememts;
+}
+
+unique_ptr<Elements>
+append_elements(Table* table,
+                unique_ptr<Elements>& E1,
+                unique_ptr<Element>& E2) {
     return std::move(E1);
 }
 
-unique_ptr<Num>
-reduce_line(Table* table, unique_ptr<Num>& E1) {
-    return std::move(E1);
+unique_ptr<Element>
+reduce_element(Table* table, unique_ptr<Tag>& E1, unique_ptr<Tag>& E2) {
+    auto elememt = std::make_unique<Element>();
+    return elememt;
 }
 
-unique_ptr<Num>
-reduce_assign(Table* table,
-              unique_ptr<Ident>& E1,
-              unique_ptr<Num>& E2) {
-    table->vars[E1->name] = E2->value;
-    return std::move(E2);
+unique_ptr<Tag>
+reduce_stag(Table* table, unique_ptr<Name>& E1) {
+    auto tag = std::make_unique<Tag>();
+    return tag;
 }
 
-unique_ptr<Num>
-reduce_exit(Table* table) {
-    table->done = true;
-    return std::make_unique<Num>(0);
+unique_ptr<Tag>
+reduce_etag(Table* table, unique_ptr<Name>& E1) {
+    auto tag = std::make_unique<Tag>();
+    return tag;
 }
 
-unique_ptr<Num>
-reduce_add_mul(Table* table,
-               unique_ptr<Num>& E1,
-               unique_ptr<Num>& E2) {
-    unique_ptr<Num> result = std::move(E1);
-    result->value += E2->value;
-    return result;
-}
 
-unique_ptr<Num>
-reduce_sub_mul(Table* table,
-               unique_ptr<Num>& E1,
-               unique_ptr<Num>& E2) {
-    unique_ptr<Num> result = std::move(E1);
-    result->value -= E2->value;
-    return result;
-}
 
-unique_ptr<Num>
-reduce_mul_int(Table* table,
-               unique_ptr<Num>& E1,
-               unique_ptr<Num>& E2) {
-    unique_ptr<Num> result = std::move(E1);
-    result->value *= E2->value;
-    return result;
-}
-
-unique_ptr<Num>
-reduce_div_int(Table* table,
-               unique_ptr<Num>& E1,
-               unique_ptr<Num>& E2) {
-    unique_ptr<Num> result = std::move(E1);
-    result->value /= E2->value;
-    return result;
-}
-
-unique_ptr<Num>
-reduce_paren(Table* table, unique_ptr<Num>& E1) {
-    return std::move(E1);
-}
-
-unique_ptr<Num>
-reduce_lookup(Table* table, unique_ptr<Ident>& E1) {
-    return std::make_unique<Num>(table->vars[E1->name]);
-}
 
 /**
  * Functions provided by the lexer for identifing terminals given the input

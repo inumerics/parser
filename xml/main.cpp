@@ -1,5 +1,6 @@
 #include "xml.hpp"
 #include <iostream>
+#include <fstream>
 #include <sstream>
 
 /**
@@ -15,23 +16,24 @@ main(int argc, const char * argv[])
     Calculator calculator;
     calculator.start();
     std::cout << "> ";
+    
+    std::ifstream in;
+    in.open("test.xml");
 
-    while (!table.done)
+    bool done = false;
+    while (!done)
     {
-        int c = std::cin.get();
-        if (c == '\n') {
+        int c = in.get();
+        std::cout << (char)c;
+        if (c == EOF) {
             std::unique_ptr<Value> result = calculator.scan_end(&table);
             if (!result) {
                 std::cerr << "Unexpected end of the input.\n";
                 return 1;
             }
-            if (!table.done) {
-                std::unique_ptr<Num> num(dynamic_cast<Num*>(result.release()));
-
-                std::cout << num->value << "\n";
-                calculator.start();
-                std::cout << "> ";
-            }
+            std::unique_ptr<Document> num(dynamic_cast<Document*>(result.release()));
+            std::cout << "Done";
+            done = true;
         }
         else {
             bool ok = calculator.scan(&table, c);

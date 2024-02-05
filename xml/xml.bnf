@@ -27,31 +27,21 @@
 
 #include "xml.hpp"
 
-/* Numbers and Identifiers */
-'num'<Num>    [0-9]+                 &scan_num;
-'hex'<Num>    0x([0-9]|[A-F]|[a-f])+ &scan_hex;
+/* names */
+'name'<Name>  ([A-Z]|[a-z])+    &scan_name;
 
-'exit'; /* declare exit first, so it's not an identifier */
+/* rules */
+document<Document>: elements    &reduce_document
+    ;
 
-'ident'<Ident>  ([A-Z]|[a-z])+       &scan_ident;
-
-/* Grammar Rules */
-total<Num>: line        &reduce_total
+elements<Elements>: element     &reduce_elements
+    | elements element          &append_elements
     ;
-line<Num> : add         &reduce_line
-    | 'ident' '=' add   &reduce_assign
-    | 'exit'            &reduce_exit
+    
+element<Element>: stag etag     &reduce_element
     ;
-add<Num>: mul
-    | add '+' mul       &reduce_add_mul
-    | add '-' mul       &reduce_sub_mul
+    
+stag<Tag>: '<' 'name' '>'       &reduce_stag
     ;
-mul<Num>: int
-    | mul '*' int       &reduce_mul_int
-    | mul '/' int       &reduce_div_int
-    | '(' add ')'       &reduce_paren
-    ;
-int<Num>: 'ident'       &reduce_lookup
-    | 'num'
-    | 'hex'
+etag<Tag>: '</' 'name' '>'      &reduce_etag
     ;
