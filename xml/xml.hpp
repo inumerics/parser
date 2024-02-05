@@ -50,6 +50,17 @@ class Content : public Value
   public:
 };
 
+class Attr : public Value
+{
+  public:
+};
+
+class Attrs : public Value
+{
+  public:
+    std::vector<Attr> items;
+};
+
 class Contents : public Value
 {
   public:

@@ -1,6 +1,8 @@
 <test>
-    <inner>
+    Test
+    <inner>Test
     </inner>
+    Test
 </test>
-<test>
+<test other="next">
 </test>

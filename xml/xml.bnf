@@ -50,7 +50,15 @@ content<Content>: 'name'  &content_name
     | element 'name'      &content_element_name
     ;
     
+attrs<Attrs>: attr      &reduce_attrs
+    | attrs attr        &append_attrs
+    ;
+    
+attr<Attr>: 'name' '=' '\"' 'name' '\"'  &reduce_attr
+    ;
+    
 stag<Tag>: '<' 'name' '>'       &reduce_stag
+    | '<' 'name' attrs '>'       &reduce_stag_attrs
     ;
 etag<Tag>: '</' 'name' '>'      &reduce_etag
     ;

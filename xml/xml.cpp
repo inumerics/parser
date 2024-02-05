@@ -56,6 +56,29 @@ reduce_empty(Table* table,
     return elememt;
 }
 
+unique_ptr<Attrs>
+reduce_attrs(Table* table,
+               unique_ptr<Attr>& E1) {
+    auto attrs = std::make_unique<Attrs>();
+    return attrs;
+}
+
+unique_ptr<Attrs>
+append_attrs(Table* table,
+               unique_ptr<Attrs>& E1,
+               unique_ptr<Attr>& E2) {
+    auto attrs = std::make_unique<Attrs>();
+    return attrs;
+}
+
+unique_ptr<Attr>
+reduce_attr(Table* table,
+               unique_ptr<Name>& E1,
+               unique_ptr<Name>& E2) {
+    auto attr = std::make_unique<Attr>();
+    return attr;
+}
+
 
 unique_ptr<Contents>
 reduce_contents(Table* table, unique_ptr<Content>& E1) {
@@ -93,6 +116,12 @@ content_element_name(Table* table,
 
 unique_ptr<Tag>
 reduce_stag(Table* table, unique_ptr<Name>& E1) {
+    auto tag = std::make_unique<Tag>();
+    return tag;
+}
+
+unique_ptr<Tag>
+reduce_stag_attrs(Table* table, unique_ptr<Name>& E1, unique_ptr<Attrs>& E2) {
     auto tag = std::make_unique<Tag>();
     return tag;
 }
