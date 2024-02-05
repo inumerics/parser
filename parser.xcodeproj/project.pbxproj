@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9676CA0229A16F14009397B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9676CA0129A16F14009397B1 /* main.cpp */; };
+		96ACC9602B707047002E15E9 /* xml.bnf in Sources */ = {isa = PBXBuildFile; fileRef = 96CEA0782B706D57006D6139 /* xml.bnf */; };
+		96CEA07A2B706D57006D6139 /* xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96CEA0772B706D57006D6139 /* xml.cpp */; };
 		96EF81B029A1733A001CC416 /* finite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81AE29A1733A001CC416 /* finite.cpp */; };
 		96EF81C029A1747E001CC416 /* literal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81BE29A1747E001CC416 /* literal.cpp */; };
 		96EF81C429A174C8001CC416 /* regex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96EF81C229A174C8001CC416 /* regex.cpp */; };
@@ -23,6 +25,23 @@
 		96EF81FD29A19ED8001CC416 /* parser in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9676C9FE29A16F14009397B1 /* parser */; };
 		96FF54082B70549200DBBB5C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96FF54072B70549200DBBB5C /* main.cpp */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		96ACC95F2B706FFD002E15E9 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.bnf";
+			fileType = pattern.proxy;
+			inputFiles = (
+				"$(SRCROOT)/xml/xml.bnf",
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILE_DIR)/states.cpp",
+			);
+			script = "PATH=${PATH}:~/source/bin\ncd \"$DERIVED_FILE_DIR\"\nparser -o states.cpp $INPUT_FILE_PATH\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		9676C9FC29A16F14009397B1 /* CopyFiles */ = {
@@ -51,6 +70,9 @@
 		9676C9FE29A16F14009397B1 /* parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = parser; sourceTree = BUILT_PRODUCTS_DIR; };
 		9676CA0129A16F14009397B1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		96B1613429A1B08800B90F93 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		96CEA0772B706D57006D6139 /* xml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xml.cpp; sourceTree = "<group>"; };
+		96CEA0782B706D57006D6139 /* xml.bnf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = xml.bnf; sourceTree = "<group>"; };
+		96CEA0792B706D57006D6139 /* xml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xml.hpp; sourceTree = "<group>"; };
 		96EF81AE29A1733A001CC416 /* finite.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = finite.cpp; sourceTree = "<group>"; };
 		96EF81AF29A1733A001CC416 /* finite.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = finite.hpp; sourceTree = "<group>"; };
 		96EF81BE29A1747E001CC416 /* literal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = literal.cpp; sourceTree = "<group>"; };
@@ -174,6 +196,9 @@
 		96FF54062B70549200DBBB5C /* xml */ = {
 			isa = PBXGroup;
 			children = (
+				96CEA0782B706D57006D6139 /* xml.bnf */,
+				96CEA0772B706D57006D6139 /* xml.cpp */,
+				96CEA0792B706D57006D6139 /* xml.hpp */,
 				96FF54072B70549200DBBB5C /* main.cpp */,
 			);
 			path = xml;
@@ -208,6 +233,7 @@
 				96FF54032B70549200DBBB5C /* CopyFiles */,
 			);
 			buildRules = (
+				96ACC95F2B706FFD002E15E9 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -223,7 +249,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					9676C9FD29A16F14009397B1 = {
 						CreatedOnToolsVersion = 14.2;
@@ -277,7 +303,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96ACC9602B707047002E15E9 /* xml.bnf in Sources */,
 				96FF54082B70549200DBBB5C /* main.cpp in Sources */,
+				96CEA07A2B706D57006D6139 /* xml.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,11 +428,11 @@
 		9676CA0629A16F14009397B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = "";
+				DEVELOPMENT_TEAM = ZSFM3BPRFF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -413,9 +441,13 @@
 		9676CA0729A16F14009397B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = ZSFM3BPRFF;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -423,7 +455,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZSFM3BPRFF;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -435,7 +470,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZSFM3BPRFF;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
