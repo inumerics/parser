@@ -21,8 +21,9 @@ scan_name(Table* table, const std::string& text) {
  * then link errors will occur when building the final program.
  */
 unique_ptr<Document>
-reduce_document(Table* table, unique_ptr<Elements>& E1) {
+reduce_document(Table* table, unique_ptr<Element>& E1) {
     auto doc = std::make_unique<Document>();
+    doc->root = std::move(E1);
     return doc;
 }
 
@@ -45,6 +46,9 @@ reduce_element(Table* table,
                unique_ptr<Contents>& E2,
                unique_ptr<Tag>& E3) {
     auto elememt = std::make_unique<Element>();
+    elememt->open = std::move(E1);
+    elememt->contents = std::move(E2->contents);
+    elememt->close = std::move(E3);
     return elememt;
 }
 
@@ -81,55 +85,86 @@ reduce_attr(Table* table,
 
 
 unique_ptr<Contents>
-reduce_contents(Table* table, unique_ptr<Content>& E1) {
-    auto content = std::make_unique<Contents>();
-    return content;
+reduce_contents(Table* table, unique_ptr<Contents>& E1) {
+//    auto contents = std::make_unique<Contents>();
+//    contents->contents.push_back(std::move(E1));
+//    return contents;
+    return std::move(E1);
 }
 
 unique_ptr<Contents>
 append_contents(Table* table,
                 unique_ptr<Contents>& E1,
-                unique_ptr<Content>& E2) {
+                unique_ptr<Contents>& E2) {
+    auto contents = std::move(E1);
+    for (auto& c : E2->contents) {
+        contents->contents.push_back(std::move(c));
+    }
+    //contents->contents.push_back(std::move(E2));
+    return contents;
+}
+
+unique_ptr<Contents>
+content_name(Table* table, unique_ptr<Name>& E1) {
     auto content = std::make_unique<Contents>();
     return content;
 }
 
-unique_ptr<Content>
-content_name(Table* table, unique_ptr<Name>& E1) {
-    auto content = std::make_unique<Content>();
-    return content;
-}
-
-unique_ptr<Content>
+unique_ptr<Contents>
 content_element(Table* table, unique_ptr<Element>& E1) {
-    auto content = std::make_unique<Content>();
+    auto content = std::make_unique<Contents>();
+    content->contents.push_back(std::move(E1));
     return content;
+//    return std::move(E1);
 }
 
-unique_ptr<Content>
+unique_ptr<Contents>
 content_element_name(Table* table,
                      unique_ptr<Element>& E1,
                      unique_ptr<Name>& E2) {
-    auto content = std::make_unique<Content>();
+    auto content = std::make_unique<Contents>();
+    content->contents.push_back(std::move(E1));
+    //content->contents.push_back(std::move(E2));
     return content;
+//    return std::move(E1);
 }
 
 unique_ptr<Tag>
 reduce_stag(Table* table, unique_ptr<Name>& E1) {
-    auto tag = std::make_unique<Tag>();
+    auto tag = std::make_unique<Tag>(E1->name);
     return tag;
 }
 
 unique_ptr<Tag>
 reduce_stag_attrs(Table* table, unique_ptr<Name>& E1, unique_ptr<Attrs>& E2) {
-    auto tag = std::make_unique<Tag>();
+    auto tag = std::make_unique<Tag>(E1->name);
     return tag;
 }
 
 unique_ptr<Tag>
 reduce_etag(Table* table, unique_ptr<Name>& E1) {
-    auto tag = std::make_unique<Tag>();
+    auto tag = std::make_unique<Tag>(E1->name);
     return tag;
+}
+
+void 
+Element::print(std::ostream& out, const std::string& ident)
+{
+    std::string indented = ident + "  ";
+    
+    out << ident << open->name << std::endl;
+    for (auto& content : contents) {
+        content->print(out, indented);
+    }
+    out << ident << close->name << std::endl;
+}
+
+void
+Document::print(std::ostream& out)
+{
+    if (root) {
+        root->print(out, "");
+    }
 }
 
 /**

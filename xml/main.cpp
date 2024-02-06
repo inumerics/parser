@@ -29,7 +29,12 @@ main(int argc, const char * argv[])
                 std::cerr << "Unexpected end of the input.\n";
                 return 1;
             }
-            std::unique_ptr<Document> num(dynamic_cast<Document*>(result.release()));
+            std::unique_ptr<Document> doc(dynamic_cast<Document*>(result.release()));
+            
+            if (doc) {
+                doc->print(std::cout);
+            }
+            
             std::cout << "Done\n";
             done = true;
         }
@@ -37,7 +42,7 @@ main(int argc, const char * argv[])
             std::cout << (char)c;
             bool ok = calculator.scan(&table, c);
             if (!ok) {
-                std::cerr << "Unexpected character '" << c <<  "'.\n";
+                std::cerr << "\nUnexpected character '" << (char)c <<  "'.\n";
                 return 1;
             }
         }

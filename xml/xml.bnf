@@ -28,10 +28,10 @@
 #include "xml.hpp"
 
 /* names */
-'name'<Name>  ([A-Z]|[a-z])+    &scan_name;
+'name'<Name>  ([0-9]|[A-Z]|[a-z]|-|:|;|#|/|.)+    &scan_name;
 
 /* rules */
-document<Document>: elements    &reduce_document
+document<Document>: element    &reduce_document
     ;
 
 elements<Elements>: element     &reduce_elements
@@ -45,7 +45,7 @@ element<Element>: stag contents etag  &reduce_element
 contents<Contents>: content   &reduce_contents
     | contents content        &append_contents
     ;
-content<Content>: 'name'  &content_name
+content<Contents>: 'name'  &content_name
     | element             &content_element
     | element 'name'      &content_element_name
     ;
@@ -58,7 +58,7 @@ attr<Attr>: 'name' '=' '\"' 'name' '\"'  &reduce_attr
     ;
     
 stag<Tag>: '<' 'name' '>'       &reduce_stag
-    | '<' 'name' attrs '>'       &reduce_stag_attrs
+    | '<' 'name' attrs '>'      &reduce_stag_attrs
     ;
 etag<Tag>: '</' 'name' '>'      &reduce_etag
     ;
