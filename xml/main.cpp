@@ -17,7 +17,7 @@ main(int argc, const char * argv[])
     calculator.start();
     
     std::ifstream in;
-    in.open("test.xml");
+    in.open("stock.xml");
 
     bool done = false;
     while (!done)
