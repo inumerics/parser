@@ -33,12 +33,6 @@
 /* rules */
 document<Document>: element    &reduce_document
     ;
-
-/*
-elements<Elements>: element     &reduce_elements
-    | elements element          &append_elements
-    ;
-  */
   
 element<Element>: stag contents etag  &reduce_element
     | stag etag        &reduce_empty

@@ -27,7 +27,7 @@ class Table {
 };
 
 /**
- *
+ * Name of attributes in the name value pairs in an opening tag.
  */
 class Name : public Value {
   public:
@@ -56,8 +56,8 @@ class Attrs : public Value
 /**
  * An XML element consists of an opening tag, content or data, and a closing
  * tag. The opening tag defines the element's name and may also include
- * attributes that provide additional information about the element. The content
- * or data between the opening and closing tags represents the actual
+ * attributes that provide additional information about the element. The 
+ * content or data between the opening and closing tags represents the actual
  * information or data associated with that element.
  */
 class Tag : public Value

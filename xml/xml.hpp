@@ -17,16 +17,12 @@
 #include <map>
 
 /**
- * An XML (Extensible Markup Language) document is a text-based data file that
- * follows specific rules and syntax for structuring and encoding data in a
- * machine-readable format.  Declaration: An XML document typically starts with
- * an optional XML declaration, which specifies the version of XML being used
- * and may include information about the character encoding used in the
- * document.
- * Root Element: Every XML document must have a single root element that
- * encapsulates all other elements within the document. The root element defines
- * the overall structure of the document and serves as the starting point for
- * navigating the data hierarchy.
+ * An XML document typically starts with an optional XML declaration, which
+ * specifies the version of XML being used and may include information about the
+ * character encoding used in the document.  Every XML document must have a
+ * single root element that encapsulates all other elements within the document.
+ * The root element defines the overall structure of the document and serves as
+ * the starting point for navigating the data hierarchy.
  */
 class Document : public Value
 {

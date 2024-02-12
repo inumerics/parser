@@ -4,10 +4,7 @@
 #include "tags.hpp"
 
 /**
- * The contents between the opening and closing tags of an XML element contain
- * the actual data or information associated with that element.  This is the
- * base class for the different contents of an xml element.  This content can
- * vary depending on the context and purpose of the document. The context may
+ * Base class for the contents inside of an XML element. The content may
  * include text, numbers, other elements, or a combination of these.
  */
 class Content : public Value
@@ -22,6 +19,9 @@ class Contents : public Value
     std::vector<std::unique_ptr<Content>> contents;
 };
 
+/**
+ * Character data found within an XML element.
+ */
 class CData : public Content
 {
   public:
@@ -50,14 +50,8 @@ class Element : public Content
     std::unique_ptr<Tag> open;
     std::unique_ptr<Tag> close;
     std::vector<std::unique_ptr<Content>> contents;
-    std::string name;
     
     virtual void print(std::ostream& out, const std::string& ident);
 };
 
-class Elements : public Value
-{
-  public:
-    std::vector<Element> items;
-};
 #endif
