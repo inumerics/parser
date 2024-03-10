@@ -16,7 +16,6 @@ class HTMLTable
     std::unique_ptr<Document> doc;
     
     void print_csv(std::ostream& out);
-    
 };
 
 #endif

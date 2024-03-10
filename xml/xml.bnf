@@ -41,9 +41,9 @@ element<Element>: stag contents etag  &reduce_element
 contents<Contents>: content   &reduce_contents
     | contents content        &append_contents
     ;
-content<Contents>: 'name'  &content_name
+content<Contents>: 'name'  &content_text
     | element             &content_element
-    | element 'name'      &content_element_name
+    | element 'name'      &content_element_text
     ;
     
 attrs<Attrs>: attr      &reduce_attrs

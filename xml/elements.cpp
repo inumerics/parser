@@ -5,7 +5,64 @@
 #include <memory>
 using std::unique_ptr;
 
+/**
+ * Build content from characters or an element.
+ */
+unique_ptr<Contents>
+content_text(Table* table,
+             unique_ptr<Name>& E1)
+{
+    auto cdata = std::make_unique<CData>();
+    cdata->name = std::move(E1->name);
 
+    auto result = std::make_unique<Contents>();
+    result->items.push_back(std::move(cdata));
+    return result;
+}
+
+unique_ptr<Contents>
+content_element(Table* table, 
+                unique_ptr<Element>& E1)
+{
+    auto result = std::make_unique<Contents>();
+    result->items.push_back(std::move(E1));
+    return result;
+}
+
+unique_ptr<Contents>
+content_element_text(Table* table,
+                     unique_ptr<Element>& E1,
+                     unique_ptr<Name>& E2) 
+{
+    auto result = std::make_unique<Contents>();
+    result->items.push_back(std::move(E1));
+    return result;
+}
+
+/**
+ * Append content within an element into a vector.
+ */
+unique_ptr<Contents>
+reduce_contents(Table* table, 
+                unique_ptr<Contents>& E1) {
+    return std::move(E1);
+}
+
+unique_ptr<Contents>
+append_contents(Table* table,
+                unique_ptr<Contents>& E1,
+                unique_ptr<Contents>& E2) 
+{
+    auto result = std::move(E1);
+    for (auto& c : E2->items) {
+        result->items.push_back(std::move(c));
+    }
+    return result;
+}
+
+/**
+ * CData
+ */
 void
 CData::print(std::ostream& out, const std::string& ident)
 {
@@ -13,86 +70,29 @@ CData::print(std::ostream& out, const std::string& ident)
 }
 
 /**
- * Build content from elements or caharcters.
+ * Reduce an element from its tags and contents.
  */
-unique_ptr<Contents>
-content_name(Table* table, unique_ptr<Name>& E1) 
+unique_ptr<Element>
+reduce_empty(Table* table,
+             unique_ptr<Tag>& E1,
+             unique_ptr<Tag>& E2) 
 {
-    auto result = std::make_unique<Contents>();
-    auto cdata = std::make_unique<CData>();
-    cdata->name = std::move(E1->name);
-    
-    result->contents.push_back(std::move(cdata));
+    auto result = std::make_unique<Element>();
     return result;
 }
 
-unique_ptr<Contents>
-content_element(Table* table, unique_ptr<Element>& E1) 
-{
-    auto content = std::make_unique<Contents>();
-    content->contents.push_back(std::move(E1));
-    return content;
-}
-
-unique_ptr<Contents>
-content_element_name(Table* table,
-                     unique_ptr<Element>& E1,
-                     unique_ptr<Name>& E2) 
-{
-    auto content = std::make_unique<Contents>();
-    content->contents.push_back(std::move(E1));
-    return content;
-}
-
-/**
- * Append content within an element into a vector.
- */
-unique_ptr<Contents>
-reduce_contents(Table* table, unique_ptr<Contents>& E1) {
-    return std::move(E1);
-}
-
-unique_ptr<Contents>
-append_contents(Table* table,
-                unique_ptr<Contents>& E1,
-                unique_ptr<Contents>& E2) {
-    auto contents = std::move(E1);
-    for (auto& c : E2->contents) {
-        contents->contents.push_back(std::move(c));
-    }
-    return contents;
-}
-
-/**
- * Reduce an element from its tags and contents.
- */
 unique_ptr<Element>
 reduce_element(Table* table,
                unique_ptr<Tag>& E1,
                unique_ptr<Contents>& E2,
-               unique_ptr<Tag>& E3) {
-    auto elememt = std::make_unique<Element>();
-    elememt->open = std::move(E1);
-    elememt->contents = std::move(E2->contents);
-    elememt->close = std::move(E3);
-    return elememt;
+               unique_ptr<Tag>& E3) 
+{
+    auto result = std::make_unique<Element>();
+    result->open     = std::move(E1);
+    result->contents = std::move(E2->items);
+    result->close    = std::move(E3);
+    return result;
 }
-
-unique_ptr<Element>
-reduce_empty(Table* table,
-               unique_ptr<Tag>& E1,
-               unique_ptr<Tag>& E2) {
-    auto elememt = std::make_unique<Element>();
-    return elememt;
-}
-
-
-
-
-
-
-
-
 
 void
 Element::print(std::ostream& out, const std::string& ident)

@@ -5,15 +5,6 @@
 #include <memory>
 using std::unique_ptr;
 
-void
-Document::print(std::ostream& out)
-{
-    if (root) {
-        root->print(out, "");
-    }
-}
-
-
 /**
  * Functions called when its associated rule is matched.  Every function is
  * passed arguments for each terminal in the rule that has an associated type.
@@ -27,6 +18,13 @@ reduce_document(Table* table, unique_ptr<Element>& E1) {
     return doc;
 }
 
+void
+Document::print(std::ostream& out)
+{
+    if (root) {
+        root->print(out, "");
+    }
+}
 
 /**
  * Functions provided by the lexer for identifing terminals given the input

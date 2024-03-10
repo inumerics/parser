@@ -1,3 +1,11 @@
+/**
+ * An XML element consists of an opening tag, content or data, and a closing
+ * tag. The opening tag defines the element's name and may also include
+ * attributes. The content between the opening and closing tags represents the
+ * actual information or data associated with that element.  Attributes are
+ * additional pieces of information that can be associated with an XML element.
+ */
+
 #ifndef tags_hpp
 #define tags_hpp
 
@@ -5,6 +13,12 @@
 #include <vector>
 #include <memory>
 #include <map>
+
+using std::map;
+using std::string;
+using std::vector;
+using std::ostream;
+using std::unique_ptr;
 
 /**
  * Value is the base class of all arguments passed to the user defined functions
@@ -17,54 +31,49 @@ class Value {
 };
 
 /**
- * The symbol table is also passed to each user defined function associated with
- * a grammar rule.
+ * The symbol table is also passed to each user defined function for while
+ * reducing the grammar rules.
  */
 class Table {
   public:
-    std::map<std::string, int> vars;
-    bool done = false;
 };
 
 /**
- * Name of attributes in the name value pairs in an opening tag.
+ * Name of an attribute in the name/value pairs of an opening tag.
  */
 class Name : public Value {
   public:
-    Name(const std::string& name) : name(name) {}
-    std::string name;
+    Name(const string& name);
+    string name;
 };
 
 /**
- * Attributes are additional pieces of information that can be associated with
- * an XML element. They provide metadata or characteristics about the element
- * itself and are typically used to convey information that is not part of the
- * element's content. Attributes are defined within the opening tag of an XML
- * element and consist of a name-value pair.
+ * Attributes provide characteristics about the element itself and convey
+ * information that is not part of the content. Attributes are defined within
+ * the opening tag and consist of a name-value pair.
  */
 class Attr : public Value
 {
   public:
+    string name;
+    string value;
 };
 
 class Attrs : public Value
 {
   public:
-    std::vector<Attr> items;
+    vector<Attr> items;
 };
 
 /**
- * An XML element consists of an opening tag, content or data, and a closing
- * tag. The opening tag defines the element's name and may also include
- * attributes that provide additional information about the element. The 
- * content or data between the opening and closing tags represents the actual
- * information or data associated with that element.
+ * The opening tag defines the element's name and may also include attributes.
  */
 class Tag : public Value
 {
   public:
-    Tag(const std::string& name) : name(name) {}
-    std::string name;
+    Tag(const string& name);
+    string name;
+    vector<Attr> attrs;
 };
 
 #endif
