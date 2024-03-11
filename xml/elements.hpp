@@ -1,14 +1,14 @@
 /**
- * An XML (Extensible Markup Language) element is a fundamental building block
- * of an XML document.  An XML element consists of three main parts:
+ * An XML element is a fundamental building block of an XML document.  
+ * The element consists of three main parts:
  *
  *  Opening Tag: The opening tag encloses the element's name within angle
  *      brackets, and it is the starting point for defining the element.
  *  Closing Tag: The closing tag is similar to the opening tag but includes a
  *      forward slash before the element name.
  *  Content: The content is the data or information enclosed between the opening
- *      and closing tags of the element.  This content can include text,
- *      numbers, and other elements.
+ *      and closing tags of the element.  This content can include text and
+ *      other elements.
  */
 
 #ifndef elements_hpp
@@ -24,7 +24,7 @@ using std::unique_ptr;
 
 /**
  * Base class for the contents inside of an XML element. The content may
- * include text, numbers, other elements, or a combination of these.
+ * include text, other elements, or a combination of these.
  */
 class Content : public Value
 {
@@ -50,8 +50,8 @@ class CData : public Content
 };
 
 /**
- * An XML (Extensible Markup Language) element defines and structure data or
- * content within the document.
+ * An XML element defines and structure data or content within the document.  It
+ * is defined by its opening and closing tags and the content between the tags.
  */
 class Element : public Content
 {

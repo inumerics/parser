@@ -5,14 +5,12 @@
 #include <memory>
 using std::unique_ptr;
 
-/**
- * Functions called when its associated rule is matched.  Every function is
- * passed arguments for each terminal in the rule that has an associated type.
- * If any function is not implemented, including with the exact argument types,
- * then link errors will occur when building the final program.
+/*******************************************************************************
+ * XML Document
  */
 unique_ptr<Document>
-reduce_document(Table* table, unique_ptr<Element>& E1) {
+reduce_document(Table* table, unique_ptr<Element>& E1) 
+{
     auto doc = std::make_unique<Document>();
     doc->root = std::move(E1);
     return doc;
@@ -26,7 +24,7 @@ Document::print(std::ostream& out)
     }
 }
 
-/**
+/*******************************************************************************
  * Functions provided by the lexer for identifing terminals given the input
  * characters.  If no node is returned, check the current node for a matching
  * symbol and call scan to get its value.
@@ -54,13 +52,13 @@ Value*  rule_reduce(Rule* rule, Table*, Value**);
 
 State* find_goto(State* state, Symbol* sym);
 
-/**
+/*******************************************************************************
  * At startup, the lexer for finding terminals is in its initial node.  For the
  * parser, the stack is cleared and the initial state is placed onto the top of
  * the stack.
  */
 void
-Calculator::start()
+XMLParser::init()
 {
     states.clear();
     symbols.clear();
@@ -81,7 +79,7 @@ Calculator::start()
  * stack as arguments.
  */
 bool
-Calculator::scan(Table* table, int c)
+XMLParser::scan(Table* table, int c)
 {
     while (true)
     {
@@ -118,7 +116,7 @@ Calculator::scan(Table* table, int c)
  * stack into a single value.
  */
 std::unique_ptr<Value>
-Calculator::scan_end(Table* table)
+XMLParser::scan_end(Table* table)
 {
     Symbol* accept = node_accept(node);
     
@@ -144,7 +142,7 @@ Calculator::scan_end(Table* table)
  * called with the values on the top of the stack as arguments.
  */
 bool
-Calculator::advance(Table* table, Symbol* sym, Value* val)
+XMLParser::advance(Table* table, Symbol* sym, Value* val)
 {
     while (true)
     {
@@ -179,7 +177,7 @@ Calculator::advance(Table* table, Symbol* sym, Value* val)
 };
 
 void
-Calculator::push(State* state, Symbol* sym, Value* val)
+XMLParser::push(State* state, Symbol* sym, Value* val)
 {
     states.push_back(state);
     symbols.push_back(sym);
@@ -187,7 +185,7 @@ Calculator::push(State* state, Symbol* sym, Value* val)
 }
 
 void
-Calculator::pop(size_t count)
+XMLParser::pop(size_t count)
 {
     for (size_t i = 0; i < count; i++) {
         states.pop_back();

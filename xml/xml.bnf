@@ -46,15 +46,15 @@ content<Contents>: 'name'  &content_text
     | element 'name'      &content_element_text
     ;
     
-attrs<Attrs>: attr      &reduce_attrs
-    | attrs attr        &append_attrs
+attrs<Attrs>: attr      &reduce_attributes
+    | attrs attr        &append_attributes
     ;
     
-attr<Attr>: 'name' '=' '\"' 'name' '\"'  &reduce_attr
+attr<Attr>: 'name' '=' '\"' 'name' '\"'  &reduce_attribute
     ;
     
-stag<Tag>: '<' 'name' '>'       &reduce_stag
-    | '<' 'name' attrs '>'      &reduce_stag_attrs
+stag<Tag>: '<' 'name' '>'       &reduce_start_tag
+    | '<' 'name' attrs '>'      &reduce_start_tag_attrs
     ;
-etag<Tag>: '</' 'name' '>'      &reduce_etag
+etag<Tag>: '</' 'name' '>'      &reduce_end_tag
     ;

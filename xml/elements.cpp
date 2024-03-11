@@ -5,7 +5,7 @@
 #include <memory>
 using std::unique_ptr;
 
-/**
+/*******************************************************************************
  * Build content from characters or an element.
  */
 unique_ptr<Contents>
@@ -39,8 +39,8 @@ content_element_text(Table* table,
     return result;
 }
 
-/**
- * Append content within an element into a vector.
+/*******************************************************************************
+ * Build a vector of content by appending text or elements.
  */
 unique_ptr<Contents>
 reduce_contents(Table* table, 
@@ -60,7 +60,7 @@ append_contents(Table* table,
     return result;
 }
 
-/**
+/*******************************************************************************
  * CData
  */
 void
@@ -69,8 +69,8 @@ CData::print(std::ostream& out, const std::string& ident)
     out << ident << name << std::endl;
 }
 
-/**
- * Reduce an element from its tags and contents.
+/*******************************************************************************
+ * Build an element from a vector of contents between two tags.
  */
 unique_ptr<Element>
 reduce_empty(Table* table,

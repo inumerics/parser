@@ -8,8 +8,8 @@ HTMLTable::read(std::istream& in)
 {
     Table table;
 
-    Calculator calculator;
-    calculator.start();
+    XMLParser calculator;
+    calculator.init();
     
     bool done = false;
     while (!done)
